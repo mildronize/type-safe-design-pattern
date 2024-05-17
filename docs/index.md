@@ -8,11 +8,11 @@ hero:
   tagline: Ready to use design Pattern for type-safe approach in modern typescript
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Starting Reading
+      link: /typescript
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Use Cases
+      link: /use-cases
 
 features:
   - title: Feature A
