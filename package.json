@@ -3,6 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
+    "@azure/static-web-apps-cli": "^1.1.7",
     "@shikijs/vitepress-twoslash": "^1.5.2",
     "@types/bun": "latest",
     "vitepress": "^1.1.4",
@@ -14,6 +15,7 @@
   "scripts": {
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
+    "deploy": "swa deploy ./docs/.vitepress/dist --env production -n thadaw-type-safe",
     "preview": "vitepress preview docs"
   }
 }
