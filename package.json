@@ -1,0 +1,18 @@
+{
+  "name": "book-type-safe-design-pattern",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@shikijs/vitepress-twoslash": "^1.5.2",
+    "@types/bun": "latest",
+    "vitepress": "^1.1.4"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs"
+  }
+}
