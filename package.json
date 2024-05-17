@@ -5,7 +5,8 @@
   "devDependencies": {
     "@shikijs/vitepress-twoslash": "^1.5.2",
     "@types/bun": "latest",
-    "vitepress": "^1.1.4"
+    "vitepress": "^1.1.4",
+    "vue": "^3.4.27"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
