@@ -5,21 +5,21 @@ layout: home
 hero:
   name: "Type-safe Design Pattern"
   text: "in Modern TypeScript"
-  tagline: Ready to use design Pattern for type-safe approach in modern typescript
+  tagline: This book provide ready to use design pattern for type-safe approach in modern typescript <br />by Thada Wangthammang
   actions:
     - theme: brand
       text: Starting Reading
-      link: /typescript
+      link: /intro
     - theme: alt
-      text: Use Cases
-      link: /use-cases
+      text: Design Patterns
+      link: /design-patterns/design-patterns
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Next Level TypeScript
+    details: Level up your TypeScript skills with advanced design patterns and best practices
+  - title: Data Structure
+    details: Not all data structure are type-safe, this book provide ready to use data structure for type-safe approach
+  - title: Design Patterns
+    details: Not all design pattern meet type-safety, this book provide ready to use design pattern for type-safe approach
 ---
 
