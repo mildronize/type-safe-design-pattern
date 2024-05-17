@@ -10,28 +10,49 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "Home", link: "/" },
-      { text: "Examples", link: "/markdown-examples" },
+      { text: "Book", link: "/intro" },
     ],
 
     sidebar: [
       {
-        text: "Examples",
+        text: "Start Reading",
+        collapsed: true,
         items: [
-          // { text: "Markdown Examples", link: "/markdown-examples" },
-          // { text: "Runtime API Examples", link: "/api-examples" },
-          { text: "TypeScript", link: "/typescript"},
-          { text: "Use Cases", link: "/use-cases"},
+          { text: "Introduction", link: "/intro" },
+          { text: "Examples", link: "/examples" },
+          { text: "Use Cases", link: "/use-cases" },
+        ],
+      },
+      {
+        text: "Data Structure",
+        collapsed: true,
+        items: [
+          { text: "Intro", link: "/data-structure/data-structure" },
+          { text: "Literal String", link: "/data-structure/literal-string" },
+          { text: "Tuple", link: "/data-structure/tuple" },
+          { text: "Record Object", link: "/data-structure/record-object" },
+        ],
+      },
+      {
+        text: "Design Patterns",
+        collapsed: true,
+        items: [
+          { text: "Intro", link: "/design-patterns/design-patterns" },
+          { text: "Builder Pattern", link: "/design-patterns/builder-pattern" },
+          { text: "Function Overloading", link: "/design-patterns/function-overload" },
+          { text: "Function Argument", link: "/design-patterns/function-argument" },
         ],
       },
     ],
 
     socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+      {
+        icon: "github",
+        link: "https://github.com/mildronize/type-safe-design-pattern",
+      },
     ],
   },
   markdown: {
-    codeTransformers: [
-      transformerTwoslash() 
-    ]
-  }
+    codeTransformers: [transformerTwoslash()],
+  },
 });

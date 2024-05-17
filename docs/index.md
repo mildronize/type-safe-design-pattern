@@ -5,11 +5,11 @@ layout: home
 hero:
   name: "Type-safe Design Pattern"
   text: "in Modern TypeScript"
-  tagline: Ready to use design Pattern for type-safe approach in modern typescript
+  tagline: This book provide ready to use design pattern for type-safe approach in modern typescript
   actions:
     - theme: brand
       text: Starting Reading
-      link: /typescript
+      link: /intro
     - theme: alt
       text: Use Cases
       link: /use-cases

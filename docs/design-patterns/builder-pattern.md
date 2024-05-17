@@ -1,20 +1,7 @@
----
-outline: deep
----
+# Builder Pattern
 
-# TypeScript
+The builder pattern is a creational design pattern that allows constructing complex objects step by step. The pattern is useful when the construction of an object is complex and requires multiple steps. The builder pattern is used to construct a complex object from simple objects step by step.
 
-After examining the code of several well-known open-source projects such as Zod, tRPC, Hono, Elysia, and ts-odata-client.
-
-## TypeScript Config
-Use strict
-
-## Use literal instead of string
-
-
-## Use object rather than list/array
-## Use tuple rather than list/array
-## Use builder pattern
 
 ```ts twoslash
 class Inventory<Items extends Record<string, unknown> = {}> {
@@ -51,10 +38,7 @@ type A = typeof inventory.items;
 // 
 ```
 
-## Use predicate function instead of plain object
-## Use function overload
-
-```ts twoslash
-console.log('hello')
-//      ^?
-```
+## Example Projects
+- Hono
+- Elysia
+- Zod
