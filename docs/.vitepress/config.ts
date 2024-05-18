@@ -65,7 +65,9 @@ export default defineConfig({
         collapsed: isCollapsed,
         items: [
           { text: "Intro", link: "/type-programming/type-programming" },
-
+          { text: "Conditional Types", link: "/type-programming/conditional-types" },
+          { text: "Loop with Recursive Types" , link: "/type-programming/loop-with-recursive-types"},
+          { text: "Template Literal Types", link: "/type-programming/template-literal-types" },
           { text: "Testing", link: "/type-programming/testing" },
           { text: "Examples", link: "/type-programming/examples" },
         ],

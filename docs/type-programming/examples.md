@@ -52,5 +52,5 @@ function navigate<T extends string>(
 }
 ```
 
-The example from [Type-level Programming]((https://type-level-typescript.com/)) book. It shows how to extract URL parameters from a string and navigate to a different route.
+The example from [Type-level Programming](https://type-level-typescript.com/) book. It shows how to extract URL parameters from a string and navigate to a different route.
 

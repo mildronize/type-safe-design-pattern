@@ -11,8 +11,8 @@ hero:
       text: Starting Reading
       link: /intro
     - theme: alt
-      text: Design Patterns
-      link: /design-patterns/design-patterns
+      text: What is Type-safe?
+      link: /type-safe
 
 features:
   - title: 🎉 &nbsp; Next Level TypeScript 

@@ -5,7 +5,7 @@ Most community said that **type-safe** a lot, but no one try to define it. So, I
 Type-safe is a design pattern that provide a way to ensure that the data type is correct and consistent in the program. This pattern is very useful in modern programming language like TypeScript, where the type system is very powerful and can be used to ensure the correctness of the program.
 
 ## The Traditional Type
-
+TBA
 
 
 ## Characteristics of Type-safe
