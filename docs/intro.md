@@ -45,6 +45,10 @@ Generics are a fundamental concept in TypeScript, so make sure you understand th
 After that, make sure you have understand type-level programming. You can read the [Type-Level Programming](https://type-level-typescript.com/) book. 
 There are many free chapters available. However, I recommend buying the book to support the author.
 
+### Recommended Books
+- [Effective TypeScript: 62 Specific Ways to Improve Your TypeScript](https://learning.oreilly.com/library/view/effective-typescript/9781098155056/) By Dan Vanderkam
+- [TypeScript Cookbook](https://learning.oreilly.com/library/view/typescript-cookbook/9781098136642/) By Stefan Baumgartner
+
 ## Disclaimer
 
 I did not create these design patterns. I learned from various modern TypeScript open-source projects, including famous ones like Zod, tRPC, Hono, Elysia, and many others, as well as writing the [Nammtham](https://nammatham.thaitype.dev/) (Azure Functions Framework). This process has helped me distill commonly used patterns. 
