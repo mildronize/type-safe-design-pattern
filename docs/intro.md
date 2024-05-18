@@ -19,7 +19,7 @@ After examining the code of several well-known open-source projects such as Zod,
 
 ## Author Talk
 
-I am currently writing a new E-book. Please follow and support!This book is for advanced TypeScript users (not suitable for beginners, it might be overwhelming). The title of the book is **"Type-safe Design Pattern in Modern TypeScript."** Not every Design Pattern can be made Type-safe, but I have compiled frequently used Design Patterns in Modern TypeScript Libraries.Disclaimer: 
+I am currently writing a new E-book. Please follow and support!This book is for advanced TypeScript users (not suitable for beginners, it might be overwhelming). The title of the book is **"Type-safe Design Pattern in Modern TypeScript."** Not every Design Pattern can be made Type-safe, but I have compiled frequently used Design Patterns in Modern TypeScript Libraries.
 
 Moreover, I have not seen any books or articles that cover these topics. I hope this book will help you improve your TypeScript code quality and design. I will publish the book on Leanpub. I will update the progress on X (Twitter). Please follow me on X (Twitter) [@mildronize](https://x.com/mildronize). I've been working on this book for a while, and I hope to finish it soon. I would love to hear feedback from the community because at that time when I'm writing, I haven't seen anyone write about this yet.
 
@@ -28,7 +28,7 @@ Moreover, I have not seen any books or articles that cover these topics. I hope 
 - TypeScript Config
   - Use strict
 - Data Structure
-  - Use [literal type](./data-structure/literal-string.md) rathen than string
+  - Use [literal type](./data-structure/literal-types) rathen than string
   - Use [Record object](./data-structure/record-object.md) rather than list/array
   - Use [Tuple](./data-structure/tuple.md) rather than list/array
 - Design Patterns
@@ -41,10 +41,10 @@ Please make sure you have a good understanding of TypeScript before reading this
 
 Generics are a fundamental concept in TypeScript, so make sure you understand them. You can read the [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) section of the TypeScript Handbook. 
 
-After that, make sure you have understand type-level programming. You can read the [Type-Level Programming](https://type-level-typescript.com/) book. 
-There are many free chapters available. However, I recommend buying the book to support the author. See more in [YouTube](https://www.youtube.com/watch?v=vGVvJuazs84) and his [slide](https://docs.google.com/presentation/d/18Y0M4SRjKoJGR3ePSBBn8yPlpkE5biufZRdHo1Ka2AI/edit?usp=sharin).
+## Recommended Reading
 
-### Recommended Books
+- [Type-Level Programming](https://type-level-typescript.com/) e-book. 
+There are many free chapters available. However, I recommend buying the book to support the author. See more in [YouTube](https://www.youtube.com/watch?v=vGVvJuazs84) and his [slide](https://docs.google.com/presentation/d/18Y0M4SRjKoJGR3ePSBBn8yPlpkE5biufZRdHo1Ka2AI/edit?usp=sharin).
 - [Effective TypeScript: 62 Specific Ways to Improve Your TypeScript](https://learning.oreilly.com/library/view/effective-typescript/9781098155056/) By Dan Vanderkam
 - [TypeScript Cookbook](https://learning.oreilly.com/library/view/typescript-cookbook/9781098136642/) By Stefan Baumgartner
 

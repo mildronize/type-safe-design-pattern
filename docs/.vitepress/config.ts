@@ -31,9 +31,21 @@ export default defineConfig({
         collapsed: isCollapsed,
         items: [
           { text: "Intro", link: "/data-structure/data-structure" },
-          { text: "Literal String", link: "/data-structure/literal-string" },
+          { text: "Literal Types", link: "/data-structure/literal-types" },
           { text: "Tuple", link: "/data-structure/tuple" },
           { text: "Record Object", link: "/data-structure/record-object" },
+        ],
+      },
+      {
+        text: "Type Programming",
+        collapsed: isCollapsed,
+        items: [
+          { text: "Intro", link: "/type-programming/type-programming" },
+          { text: "Conditional Types", link: "/type-programming/conditional-types" },
+          { text: "Loop with Recursive Types" , link: "/type-programming/loop-with-recursive-types"},
+          { text: "Template Literal Types", link: "/type-programming/template-literal-types" },
+          { text: "Testing", link: "/type-programming/testing" },
+          { text: "Examples", link: "/type-programming/examples" },
         ],
       },
       {
@@ -58,18 +70,6 @@ export default defineConfig({
         items: [
           { text: "Intro", link: "/framework-pattern/framework-pattern" },
           { text: "Config File", link: "/framework-pattern/config-file" },
-        ],
-      },
-      {
-        text: "Type Programming",
-        collapsed: isCollapsed,
-        items: [
-          { text: "Intro", link: "/type-programming/type-programming" },
-          { text: "Conditional Types", link: "/type-programming/conditional-types" },
-          { text: "Loop with Recursive Types" , link: "/type-programming/loop-with-recursive-types"},
-          { text: "Template Literal Types", link: "/type-programming/template-literal-types" },
-          { text: "Testing", link: "/type-programming/testing" },
-          { text: "Examples", link: "/type-programming/examples" },
         ],
       },
       {
