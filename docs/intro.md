@@ -43,7 +43,7 @@ Please make sure you have a good understanding of TypeScript before reading this
 Generics are a fundamental concept in TypeScript, so make sure you understand them. You can read the [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) section of the TypeScript Handbook. 
 
 After that, make sure you have understand type-level programming. You can read the [Type-Level Programming](https://type-level-typescript.com/) book. 
-There are many free chapters available. However, I recommend buying the book to support the author.
+There are many free chapters available. However, I recommend buying the book to support the author. See more in [YouTube](https://www.youtube.com/watch?v=vGVvJuazs84) and his [slide](https://docs.google.com/presentation/d/18Y0M4SRjKoJGR3ePSBBn8yPlpkE5biufZRdHo1Ka2AI/edit?usp=sharin).
 
 ### Recommended Books
 - [Effective TypeScript: 62 Specific Ways to Improve Your TypeScript](https://learning.oreilly.com/library/view/effective-typescript/9781098155056/) By Dan Vanderkam

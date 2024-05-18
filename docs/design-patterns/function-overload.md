@@ -2,6 +2,10 @@
 
 Function overloading is a feature that allows creating multiple functions with the same name but different parameters. It is a way to achieve polymorphism in programming languages that do not support it natively.
 
+## Prerequisites
+
+- [TypeScript Function Overloading](https://dmitripavlutin.com/typescript-function-overloading/)
+
 ## Examples
 
 ```ts

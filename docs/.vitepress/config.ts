@@ -1,6 +1,8 @@
 import { defineConfig } from "vitepress";
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 
+const isCollapsed = true;
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   lastUpdated: true,
@@ -17,16 +19,16 @@ export default defineConfig({
     sidebar: [
       {
         text: "Start Reading",
-        collapsed: false,
+        collapsed: isCollapsed,
         items: [
           { text: "Introduction", link: "/intro" },
-          { text: "Type-safe", link: "/type-safe" },
+          { text: "What is Type-safe", link: "/type-safe" },
           { text: "Examples", link: "/examples" },
         ],
       },
       {
         text: "Data Structure",
-        collapsed: false,
+        collapsed: isCollapsed,
         items: [
           { text: "Intro", link: "/data-structure/data-structure" },
           { text: "Literal String", link: "/data-structure/literal-string" },
@@ -36,7 +38,7 @@ export default defineConfig({
       },
       {
         text: "Design Patterns",
-        collapsed: false,
+        collapsed: isCollapsed,
         items: [
           { text: "Intro", link: "/design-patterns/design-patterns" },
           { text: "Builder Pattern", link: "/design-patterns/builder-pattern" },
@@ -52,24 +54,32 @@ export default defineConfig({
       },
       {
         text: "Framework Pattern",
-        collapsed: false,
+        collapsed: isCollapsed,
         items: [
           { text: "Intro", link: "/framework-pattern/framework-pattern" },
           { text: "Config File", link: "/framework-pattern/config-file" },
         ],
       },
       {
-        text: "Performance",
-        collapsed: false,
+        text: "Type Programming",
+        collapsed: isCollapsed,
         items: [
-          { text: "Intro", link: "/performance/performance" },
+          { text: "Intro", link: "/type-programming/type-programming" },
+
+          { text: "Testing", link: "/type-programming/testing" },
+          { text: "Examples", link: "/type-programming/examples" },
         ],
       },
-
+      {
+        text: "Performance",
+        collapsed: isCollapsed,
+        items: [{ text: "Intro", link: "/performance/performance" }],
+      },
     ],
     footer: {
-      message: 'Content License under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="blank">CC BY-NC-ND 4.0</a>',
-      copyright: 'Copyright © 2024-present Thada Wangthammang'
+      message:
+        'Content License under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="blank">CC BY-NC-ND 4.0</a>',
+      copyright: "Copyright © 2024-present Thada Wangthammang",
     },
     socialLinks: [
       {
@@ -81,8 +91,9 @@ export default defineConfig({
       provider: "local",
     },
     editLink: {
-      pattern: 'https://github.com/mildronize/type-safe-design-pattern/tree/main/docs/:path'
-    }
+      pattern:
+        "https://github.com/mildronize/type-safe-design-pattern/tree/main/docs/:path",
+    },
   },
   markdown: {
     codeTransformers: [transformerTwoslash()],
