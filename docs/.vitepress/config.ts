@@ -60,6 +60,9 @@ export default defineConfig({
     search: {
       provider: "local",
     },
+    editLink: {
+      pattern: 'https://github.com/mildronize/type-safe-design-pattern/tree/main/docs/:path'
+    }
   },
   markdown: {
     codeTransformers: [transformerTwoslash()],
