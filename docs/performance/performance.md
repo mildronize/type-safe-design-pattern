@@ -20,3 +20,10 @@ TypeScript's type helpers are powerful tools for defining complex types, but whe
 TypeScript provides a built-in tool for generating performance traces, which can be extremely useful for identifying performance bottlenecks in your TypeScript code. The command `tsc --generateTrace outDir` generates a set of JSON files in the specified output directory (`outDir`). These JSON files can be imported into Chrome Dev Tools, which provides a visual representation of the performance trace. In Chrome Dev Tools, you can analyze the traces to see which parts of your TypeScript code are taking the most time to compile. This detailed information helps in pinpointing specific files or types that are causing performance issues, allowing you to optimize them for better performance.
 
 By breaking down type helpers and using performance tracing tools, you can significantly improve the efficiency and maintainability of your TypeScript codebase.
+
+## TypeScript Performance Walkthrough
+
+
+[![](./typescript-performance-aleksandra.png)](https://www.youtube.com/watch?v=ZL3z1oBZntk)
+
+You can watch the full talk on [TypeScript Performance with Aleksandra Sikora](https://www.youtube.com/watch?v=ZL3z1oBZntk) by Matt Pocock and Aleksandra Sikora
