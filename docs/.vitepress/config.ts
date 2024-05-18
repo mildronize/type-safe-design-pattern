@@ -3,6 +3,7 @@ import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  lastUpdated: true,
   title: "Type-safe Design Pattern",
   description:
     "Ready to use design Pattern for type-safe approach in modern typescript",
