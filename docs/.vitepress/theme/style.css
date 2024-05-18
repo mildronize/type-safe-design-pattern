@@ -148,3 +148,12 @@
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
+
+
+/** 
+  * Custom CSS
+  * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-font-family-base:  "Noto Sans Thai", sans-serif;
+}

@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: เริ่มอ่าน
-      link: /intro
+      link: /th/intro
     - theme: alt
       text: อะไรคือ Type-safe?
       link: /type-safe
