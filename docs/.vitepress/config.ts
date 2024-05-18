@@ -39,8 +39,14 @@ export default defineConfig({
         items: [
           { text: "Intro", link: "/design-patterns/design-patterns" },
           { text: "Builder Pattern", link: "/design-patterns/builder-pattern" },
-          { text: "Function Overloading", link: "/design-patterns/function-overload" },
-          { text: "Function Argument", link: "/design-patterns/function-argument" },
+          {
+            text: "Function Overloading",
+            link: "/design-patterns/function-overload",
+          },
+          {
+            text: "Function Argument",
+            link: "/design-patterns/function-argument",
+          },
         ],
       },
     ],
@@ -51,6 +57,9 @@ export default defineConfig({
         link: "https://github.com/mildronize/type-safe-design-pattern",
       },
     ],
+    search: {
+      provider: "local",
+    },
   },
   markdown: {
     codeTransformers: [transformerTwoslash()],
