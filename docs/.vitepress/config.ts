@@ -50,7 +50,10 @@ export default defineConfig({
         ],
       },
     ],
-
+    footer: {
+      message: 'Content License under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="blank">CC BY-NC-ND 4.0</a>',
+      copyright: 'Copyright © 2024-present Thada Wangthammang'
+    },
     socialLinks: [
       {
         icon: "github",
