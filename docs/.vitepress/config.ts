@@ -17,7 +17,7 @@ export default defineConfig({
     sidebar: [
       {
         text: "Start Reading",
-        collapsed: true,
+        collapsed: false,
         items: [
           { text: "Introduction", link: "/intro" },
           { text: "Type-safe", link: "/type-safe" },
@@ -26,7 +26,7 @@ export default defineConfig({
       },
       {
         text: "Data Structure",
-        collapsed: true,
+        collapsed: false,
         items: [
           { text: "Intro", link: "/data-structure/data-structure" },
           { text: "Literal String", link: "/data-structure/literal-string" },
@@ -36,7 +36,7 @@ export default defineConfig({
       },
       {
         text: "Design Patterns",
-        collapsed: true,
+        collapsed: false,
         items: [
           { text: "Intro", link: "/design-patterns/design-patterns" },
           { text: "Builder Pattern", link: "/design-patterns/builder-pattern" },
@@ -52,7 +52,7 @@ export default defineConfig({
       },
       {
         text: "Framework Pattern",
-        collapsed: true,
+        collapsed: false,
         items: [
           { text: "Intro", link: "/framework-pattern/framework-pattern" },
           { text: "Config File", link: "/framework-pattern/config-file" },
@@ -60,7 +60,7 @@ export default defineConfig({
       },
       {
         text: "Performance",
-        collapsed: true,
+        collapsed: false,
         items: [
           { text: "Intro", link: "/performance/performance" },
         ],
