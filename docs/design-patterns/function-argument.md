@@ -172,9 +172,9 @@ In this example, we created a `createFetcher` function that returns a `fetcher` 
 ## Real World Examples
 
 ```ts
-import { ODataExpression} from 'ts-odata-client';
+import { ODataExpression } from 'ts-odata-client';
 
-const result = ODataExpression.forV4<User>()
+const results = ODataExpression.forV4<User>()
   .filter((p) => p.firstName.$equals("john"))
   .build();
 
