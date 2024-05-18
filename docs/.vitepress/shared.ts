@@ -50,6 +50,7 @@ export function sidebar(options?: SidebarOptions): DefaultTheme.SidebarItem[] {
       items: [
         { text: "Introduction", link: `${lang}/intro` },
         { text: "What is Type-safe", link: `${lang}/type-safe` },
+        { text: "Glossary", link: `${lang}/glossary` },
         { text: "Examples", link: `${lang}/examples` },
       ],
     },
@@ -58,7 +59,7 @@ export function sidebar(options?: SidebarOptions): DefaultTheme.SidebarItem[] {
       collapsed: isCollapsed,
       base: `${lang}/data-structure/`,
       items: [
-        { text: "Intro", link: "data-structure" },
+        { text: "Intro", link: "data-structure", docFooterText: "Intro to Data Structure" },
         { text: "Literal Types", link: "literal-types" },
         { text: "Tuple", link: "tuple" },
         { text: "Record Object", link: "record-object" },
@@ -68,8 +69,9 @@ export function sidebar(options?: SidebarOptions): DefaultTheme.SidebarItem[] {
       text: "Type Programming",
       collapsed: isCollapsed,
       base: `${lang}/type-programming/`,
+
       items: [
-        { text: "Intro", link: "type-programming" },
+        { text: "Intro", link: "type-programming", docFooterText: "Intro to Type Programming" },
         { text: "Conditional Types", link: "conditional-types" },
         { text: "Loop with Recursive Types", link: "loop-with-recursive-types" },
         { text: "Template Literal Types", link: "template-literal-types" },
@@ -82,7 +84,8 @@ export function sidebar(options?: SidebarOptions): DefaultTheme.SidebarItem[] {
       collapsed: isCollapsed,
       base: `${lang}/design-patterns/`,
       items: [
-        { text: "Intro", link: "design-patterns" },
+        { text: "Intro", link: "design-patterns", docFooterText: "Intro to Design Patterns" },
+        { text: "Loosen and Tighten", link: "loosen-and-tighten" },
         { text: "Builder Pattern", link: "builder-pattern" },
         { text: "Function Overloading", link: "function-overload" },
         { text: "Function Argument", link: "function-argument" },
@@ -93,7 +96,7 @@ export function sidebar(options?: SidebarOptions): DefaultTheme.SidebarItem[] {
       collapsed: isCollapsed,
       base: `${lang}/framework-pattern/`,
       items: [
-        { text: "Intro", link: "framework-pattern" },
+        { text: "Intro", link: "framework-pattern", docFooterText: "Intro to Framework Pattern" },
         { text: "Config File", link: "config-file" },
       ],
     },
@@ -101,7 +104,7 @@ export function sidebar(options?: SidebarOptions): DefaultTheme.SidebarItem[] {
       text: "Performance",
       collapsed: isCollapsed,
       base: `${lang}/performance/`,
-      items: [{ text: "Intro", link: "performance" }],
+      items: [{ text: "Intro", link: "performance", docFooterText: "Intro to Performance" }],
     },
   ];
 }
