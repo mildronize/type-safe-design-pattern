@@ -6,6 +6,7 @@
     "@azure/static-web-apps-cli": "^1.1.7",
     "@shikijs/vitepress-twoslash": "^1.5.2",
     "@types/bun": "latest",
+    "@types/node": "^20.12.12",
     "vitepress": "^1.1.4",
     "vue": "^3.4.27"
   },
