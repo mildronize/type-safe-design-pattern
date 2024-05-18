@@ -20,6 +20,7 @@ export default defineConfig({
         collapsed: true,
         items: [
           { text: "Introduction", link: "/intro" },
+          { text: "Type-safe", link: "/type-safe" },
           { text: "Examples", link: "/examples" },
         ],
       },
@@ -47,6 +48,14 @@ export default defineConfig({
             text: "Function Argument",
             link: "/design-patterns/function-argument",
           },
+        ],
+      },
+      {
+        text: "Framework Pattern",
+        collapsed: true,
+        items: [
+          { text: "Intro", link: "/framework-pattern/framework-pattern" },
+          { text: "Config File", link: "/framework-pattern/config-file" },
         ],
       },
       {
