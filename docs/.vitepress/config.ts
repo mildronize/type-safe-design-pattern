@@ -49,6 +49,14 @@ export default defineConfig({
           },
         ],
       },
+      {
+        text: "Performance",
+        collapsed: true,
+        items: [
+          { text: "Intro", link: "/performance/performance" },
+        ],
+      },
+
     ],
     footer: {
       message: 'Content License under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="blank">CC BY-NC-ND 4.0</a>',

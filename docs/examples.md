@@ -9,3 +9,4 @@ Reading open source projects is a great way to learn how to write better code. H
 - Hono
 - Elysia
 - ts-odata-client
+- [zodios](https://www.zodios.org/)
