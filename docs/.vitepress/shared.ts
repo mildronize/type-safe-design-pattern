@@ -70,11 +70,24 @@ export function sidebar(options?: SidebarOptions): DefaultTheme.SidebarItem[] {
       text: "Type Programming",
       collapsed: isCollapsed,
       base: `${lang}/type-programming/`,
-
       items: [
         { text: "Intro", link: "type-programming", docFooterText: "Intro to Type Programming" },
         { text: "Conditional Types", link: "conditional-types" },
-        { text: "Loop with Recursive Types", link: "loop-with-recursive-types" },
+        {
+          text: "Loop",
+          collapsed: isCollapsed,
+          base: `${lang}/type-programming/loop/`,
+          items: [
+            {
+              text: "Mapped Types",
+              link: "mapped-types"
+            },
+            {
+              text: "Recursive Types",
+              link: "recursive-types"
+            },
+          ],
+        },
         { text: "Template Literal Types", link: "template-literal-types" },
         { text: "Testing", link: "testing" },
         { text: "Examples", link: "examples" },

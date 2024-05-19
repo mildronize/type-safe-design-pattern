@@ -123,7 +123,7 @@ This is not equivalent to `===` operator in JavaScript. The `extends` keyword in
 
 In generally programming, a loop is a control flow statement that allows us to repeat a block of code multiple times. In type programming, we can think of a recursive type as a loop. We can declare a recursive type that repeats a type computation multiple times.
 
-For example, we can declare a recursive type `Repeat` that repeats a type `T` multiple times. This is similar to declaring a loop that repeats a block of code multiple times.
+For example, we can declare a recursive type `FilterString` that filters out the string elements from an array type `T`. This is similar to writing a loop that filters out the string elements from an array.
 
 ```ts twoslash
 // Declare a recursive type
