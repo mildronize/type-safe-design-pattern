@@ -171,24 +171,80 @@ In this example, we created a `createFetcher` function that returns a `fetcher` 
 
 ## Real World Examples
 
-```ts
+### Example 1: OData Query Builder
+
+[OData](https://www.odata.org/) is a standard protocol for querying and updating data. It defines a set of query options that clients can use to request data from a server. The OData query builder is a library that helps you build OData queries in a type-safe way.
+
+```ts twoslash
 import { ODataExpression} from 'ts-odata-client';
 
-const result = ODataExpression.forV4<User>()
-  .filter((p) => p.firstName.$equals("john"))
-  .build();
+interface User {
+  firstName: string;
+  lastName: string;
+}
 
-console.log(results);
+const expression = ODataExpression
+  .forV4<User>()
+  .filter((p) => 
+    p.firstName.$equals("john")
+  );
+
+console.log(`Query String: ${expression.build().filter}`);
+// Output: Query String: $filter=firstName eq 'john'
 ```
 
-Implementing a function argument instead of a plain object:
+For this example, we are using the `ts-odata-client` library to build an OData query. The `ODataExpression` class provides a fluent API for building OData queries. In this example, we are filtering the users whose `firstName` is equal to "john".
+
+### How Function Argument Works
+
+Focus on the `filter` function argument, you can see that the `filter` function accepts a predicate function that takes a parameter `p`. The `p` parameter is an object that represents the properties of the `User` interface. You can access the properties of the `User` interface, which is `firstName` and `lastName`, and use them to build the filter expression.
+
+Without the Function Argument pattern, you would have to pass the `User` object directly to the `filter` function, which would make the code less readable and harder to maintain.
+
+```ts twoslash
+import { ODataExpression} from 'ts-odata-client';
+
+interface User {
+  firstName: string;
+  lastName: string;
+}
+
+const expression = ODataExpression
+  .forV4<User>()
+  .filter((p) => { // [!code focus]
+      type FilterFunction = typeof p;  // [!code focus]
+           // ^?
+
+
+
+
+
+
+
+
+
+
+
+
+
+      return p.firstName.$equals("john")  // [!code focus]
+  });
+```
+
+### ODataExpression Implementation  
+
+From source code [ts-odata-client@2.0.2](https://github.com/cbrianball/ts-odata-client/blob/7b55184beebe5a08437863035f7bac29c341025a/src/lib/ODataQueryBase.ts#L106-L119), you can see how the `filter` function is implemented using the Function Argument pattern.
 
 ```ts
+// File: src/lib/ODataQueryBase.ts
+
 export class ODataQueryBase<T, U = ExcludeProperties<T, unknown[]>> {
+
+  // ...
   public filter(
-    predicate:
-      | BooleanPredicateBuilder<T>
-      | ((builder: EntityProxy<T, true>, functions: FilterAccessoryFunctions<T>) => BooleanPredicateBuilder<T>),
+    predicate:  // [!code focus]
+      | BooleanPredicateBuilder<T>  // [!code focus]
+      | ((builder: EntityProxy<T, true>, functions: FilterAccessoryFunctions<T>) => BooleanPredicateBuilder<T>),  // [!code focus]
   ) {
     if (typeof predicate === "function")
       predicate = predicate(
@@ -199,11 +255,16 @@ export class ODataQueryBase<T, U = ExcludeProperties<T, unknown[]>> {
     const expression = new Expression(ExpressionOperator.Predicate, [predicate], this.expression);
     return this.provider.createQuery<T, U>(expression);
   }
+
+  // ...
 }
 ```
 
-From [ts-odata-client](https://github.com/cbrianball/ts-odata-client/blob/7b55184beebe5a08437863035f7bac29c341025a/src/lib/ODataQueryBase.ts#L106-L119)
+
 
 
 ## Example Projects
-- ts-odata-client
+- [ts-odata-client](https://github.com/cbrianball/ts-odata-client) - A TypeScript library for building OData queries.
+
+
+
