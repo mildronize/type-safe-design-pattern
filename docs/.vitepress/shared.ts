@@ -50,6 +50,7 @@ export function sidebar(options?: SidebarOptions): DefaultTheme.SidebarItem[] {
       items: [
         { text: "Introduction", link: `${lang}/intro` },
         { text: "What is Type-safe", link: `${lang}/type-safe` },
+        { text: "Project Structure", link: `${lang}/project-structure` },
         { text: "Glossary", link: `${lang}/glossary` },
         { text: "Examples", link: `${lang}/examples` },
       ],
