@@ -7,6 +7,7 @@
     "@shikijs/vitepress-twoslash": "^1.5.2",
     "@types/bun": "latest",
     "@types/node": "^20.12.12",
+    "ts-odata-client": "2.0.2",
     "vitepress": "^1.1.4",
     "vue": "^3.4.27"
   },
@@ -17,6 +18,7 @@
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
     "deploy": "swa deploy ./docs/.vitepress/dist --env production -n thadaw-type-safe",
+    "deploy:staging": "swa deploy ./docs/.vitepress/dist --env staging -n thadaw-type-safe",
     "preview": "vitepress preview docs"
   }
 }
