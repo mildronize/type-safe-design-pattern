@@ -29,13 +29,13 @@ outline: deep
 - การตั้งค่า TypeScript
   - ใช้ strict
 - โครงสร้างข้อมูล
-  - ใช้ [literal type](./data-structure/literal-types) แทน string
-  - ใช้ [Record object](./data-structure/record-object.md) แทน list/array
-  - ใช้ [Tuple](./data-structure/tuple.md) แทน list/array
+  - ใช้ [literal type](/data-structure/literal-types) แทน string
+  - ใช้ [Record object](/data-structure/record-object.md) แทน list/array
+  - ใช้ [Tuple](/data-structure/tuple.md) แทน list/array
 - รูปแบบการออกแบบ
-  - ใช้ [builder pattern](./design-patterns/builder-pattern.md)
-  - ใช้ [function argument](./design-patterns/function-argument.md) แทน plain object
-  - ใช้ [function overload](./design-patterns/function-overload.md)
+  - ใช้ [builder pattern](/design-patterns/builder-pattern.md)
+  - ใช้ [function argument](/design-patterns/function-argument.md) แทน plain object
+  - ใช้ [function overload](/design-patterns/function-overload.md)
 
 ## ข้อกำหนดเบื้องต้น
 โปรดแน่ใจว่าคุณมีความเข้าใจใน TypeScript ดีพอก่อนที่จะอ่านหนังสือเล่มนี้ ถ้าคุณเป็นผู้เริ่มต้นแนะนำให้อ่าน [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) ก่อน
