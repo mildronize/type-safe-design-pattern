@@ -97,17 +97,75 @@ describe("Sidebar", () => {
     expect(sidebar).toBeDefined();
   });
 
-  // test("should add a group to sidebar and it's items", () => {
-  //   const sidebar = new Sidebar()
-  //     .addGroup("/", { text: "Start Reading", collapsed: true })
-  //     .add("/", "/intro", { text: "Introduction" })
-  //     .toSidebarItems();
-  //   expect(sidebar).toStrictEqual([
-  //     {
-  //       text: "Start Reading",
-  //       collapsed: true,
-  //       items: [{ text: "Introduction", link: `/intro` }],
-  //     },
-  //   ]);
-  // });
+  test("should add a group to sidebar and it's items", () => {
+    const sidebar = new Sidebar()
+      .addGroup("/", { text: "Start Reading", collapsed: true })
+      .add("/", "intro", { text: "Introduction", link: `/intro` })
+      .toSidebarItems();
+
+    expect(sidebar).toStrictEqual([
+      {
+        key: "/",
+        text: "Start Reading",
+        collapsed: true,
+        items: [{ key: "/intro", text: "Introduction", link: `/intro` }],
+      },
+    ]);
+  });
+
+  test("should add sidebarItem to group", () => {
+    const sidebar = new Sidebar()
+      .addGroup("/", { text: "Start Reading", collapsed: true })
+      .add("/", "intro", { text: "Introduction", link: `/intro` })
+      .add("/", "conclusion", { text: "Conclusion", link: `/conclusion` })
+      .toSidebarItems();
+
+    expect(sidebar).toStrictEqual([
+      {
+        key: "/",
+        text: "Start Reading",
+        collapsed: true,
+        items: [
+          { key: "/intro", text: "Introduction", link: `/intro` },
+          { key: "/conclusion", text: "Conclusion", link: `/conclusion` },
+        ],
+      },
+    ]);
+  });
+
+  test("should add a group to sidebar and it's items", () => {
+    const sidebar = new Sidebar()
+      .addGroup("/", { text: "Start Reading" })
+      .addGroup("/loop", { text: "Loop" })
+      .addGroup("/loop/mapped-types", { text: "Mapped Types" })
+      .addGroup("/loop/recursive-types", { text: "Recursive Types" })
+      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/loop/mapped-types/intro` })
+      .add("/loop/recursive-types", "intro", { text: "Introduction", link: `/loop/recursive-types/intro`})
+      .toSidebarItems();
+
+    expect(sidebar).toStrictEqual([
+      {
+        key: "/",
+        text: "Start Reading",
+      },
+      {
+        key: "/loop",
+        text: "Loop",
+        items: [
+          {
+            key: "/loop/mapped-types",
+            text: "Mapped Types",
+            items: [{ key: "/loop/mapped-types/intro", text: "Introduction", link: `/loop/mapped-types/intro` }],
+          },
+          {
+            key: "/loop/recursive-types",
+            text: "Recursive Types",
+            items: [
+              { key: "/loop/recursive-types/intro", text: "Introduction", link: `/loop/recursive-types/intro` },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
 });

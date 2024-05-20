@@ -1,6 +1,6 @@
 import type { DefaultTheme } from "vitepress";
 
-export type SidebarMetadata = Omit<DefaultTheme.SidebarItem, "items" | "base" | "link"> & {
+export type SidebarMetadata = Omit<DefaultTheme.SidebarItem, "items" | "base"> & {
   order?: number;
 };
 export type SidebarItem = Omit<DefaultTheme.SidebarItem, "items"> & {
@@ -10,11 +10,18 @@ export type SidebarItem = Omit<DefaultTheme.SidebarItem, "items"> & {
    * @example `/type-programming/loop/mapped-types`
    */
   key: string;
-
   items?: SidebarItem[];
 };
+export type SingleSidebarItem = Omit<SidebarItem, "items">;
 export type AbsoluteLink = string;
 export type RelativeLink = string;
+
+/**
+ * Trim the slash from the start and end of the string.
+ * @param str
+ * @returns
+ */
+export const trimSlash = (str: string) => str.replace(/^\/|\/$/g, "");
 
 export class Sidebar<
   Groups extends Record<AbsoluteLink, SidebarMetadata> = {},
@@ -39,9 +46,11 @@ export class Sidebar<
 
   add<Link extends RelativeLink>(group: keyof Groups, key: Link, value: SidebarMetadata) {
     value.order = Object.keys(this.items).length;
+    const parsedGroup = trimSlash(String(group)) === '' ? '' : trimSlash(String(group)) + '/';
+    const mergedKey = `/${parsedGroup}${trimSlash(key)}`;
     this.items = {
       ...this.items,
-      [key]: value as Items[Link],
+      [mergedKey]: value as Items[Link],
     };
     return this as unknown as Sidebar<Groups, Items & Record<Link, SidebarMetadata>>;
   }
@@ -74,7 +83,7 @@ export class Sidebar<
    *  ]
    * }
    * ```
-   * 
+   *
    */
   public generateSidebarItemGroup(): SidebarItem[] {
     const items: SidebarItem[] = [];
@@ -109,9 +118,48 @@ export class Sidebar<
   }
 
   toSidebarItems(): SidebarItem[] {
-    const items: SidebarItem[] = this.generateSidebarItemGroup();
-    
-    return items;
+    const groupItems: SidebarItem[] = this.generateSidebarItemGroup();
+    const getGroupKey = (key: string) => {
+      const split = trimSlash(key).split("/");
+      const groupKey = split.slice(0, split.length - 1).join("/");
+      return "/" + groupKey;
+    };
+    /**
+     * Loop in nested sidebar items and set the key and items.
+     * @param findKey
+     * @param items
+     */
+    const setSidebarItemsWithKey = (findKey: string, value: SingleSidebarItem, _groupItems: SidebarItem[]) => {
+      const groupKey = getGroupKey(findKey);
+      console.log("groupKey: ", groupKey);
+      for (const groupItem of _groupItems) {
+        if (groupKey === groupItem.key) {
+          console.log(`Found "${groupItem.text}" with key: ${groupItem.key}`);
+          if (!groupItem.items) {
+            groupItem.items = [];
+          }
+          groupItem.items.push(value);
+          return;
+        }
+        if (groupItem.items) {
+          setSidebarItemsWithKey(findKey, value, groupItem.items);
+        }
+      }
+    };
+    // console.log(this.items);
+    // console.log(JSON.stringify(groupItems, null, 2));
+    for (const [key, value] of Object.entries(this.items)) {
+      const { order, ...restValue } = value;
+      setSidebarItemsWithKey(
+        key,
+        {
+          key,
+          ...restValue,
+        },
+        groupItems
+      );
+    }
+    return groupItems;
   }
 
   override(group: keyof Groups, key: keyof Items, value: SidebarMetadata) {
