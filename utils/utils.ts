@@ -1,4 +1,6 @@
 import type { DefaultTheme } from "vitepress";
+import { sidebar } from '../docs/.vitepress/shared';
+import { link } from "fs";
 
 export type SidebarMetadata = Omit<DefaultTheme.SidebarItem, "items" | "base"> & {
   order?: number;
@@ -156,16 +158,20 @@ export class Sidebar<
     }
   }
 
-  toSidebarItems(): SidebarItem[] {
+  toSidebarItems(prefixLink = ''): SidebarItem[] {
     const groupItems: SidebarItem[] = this.generateSidebarItemGroup();
 
     for (const [key, value] of Object.entries(this.items)) {
       const { order, ...restValue } = value;
+      const sidebarItem = {
+        ...restValue,
+        link: restValue.link ? `${prefixLink}${restValue.link}` : undefined,
+      };
       this.setSidebarItemsWithKey(
         this.getGroupKey(key),
         {
           key,
-          ...restValue,
+          ...sidebarItem,
         },
         groupItems
       );
