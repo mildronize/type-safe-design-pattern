@@ -169,3 +169,67 @@ describe("Sidebar", () => {
     ]);
   });
 });
+
+
+describe("Sidebar Override", () => {
+  test("should add a group to sidebar and it's items", () => {
+    const baseSidebar = new Sidebar()
+      .addGroup("/", { text: "Start Reading" })
+      .addGroup("/loop", { text: "Loop" })
+      .addGroup("/loop/mapped-types", { text: "Mapped Types" })
+      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/loop/mapped-types/intro` })
+
+    const sidebar = baseSidebar.clone()
+      .override("/loop/mapped-types", "intro", { text: "Mapped Types", link: `/loop/mapped-types` })
+      .toSidebarItems();
+
+    expect(sidebar).toStrictEqual([
+      {
+        key: "/",
+        text: "Start Reading",
+      },
+      {
+        key: "/loop",
+        text: "Loop",
+        items: [
+          {
+            key: "/loop/mapped-types",
+            text: "Mapped Types",
+            items: [{ key: "/loop/mapped-types/intro", text: "Mapped Types", link: `/loop/mapped-types` }],
+          },
+        ],
+      },
+    ]);
+  });
+
+  test("should add a group to sidebar and it's items, with partial metadata", () => {
+    const baseSidebar = new Sidebar()
+      .addGroup("/", { text: "Start Reading" })
+      .addGroup("/loop", { text: "Loop" })
+      .addGroup("/loop/mapped-types", { text: "Mapped Types" })
+      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/loop/mapped-types/intro` })
+
+    const sidebar = baseSidebar.clone()
+      .override("/loop/mapped-types", "intro", { text: "Mapped Types" })
+      .toSidebarItems();
+
+    expect(sidebar).toStrictEqual([
+      {
+        key: "/",
+        text: "Start Reading",
+      },
+      {
+        key: "/loop",
+        text: "Loop",
+        items: [
+          {
+            key: "/loop/mapped-types",
+            text: "Mapped Types",
+            items: [{ key: "/loop/mapped-types/intro", text: "Mapped Types", link: `/loop/mapped-types/intro` }],
+          },
+        ],
+      },
+    ]);
+  });
+
+});

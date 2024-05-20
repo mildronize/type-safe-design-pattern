@@ -44,15 +44,27 @@ export class Sidebar<
     return this as unknown as Sidebar<Groups & Record<Link, SidebarMetadata>, Items>;
   }
 
-  add<Link extends RelativeLink>(group: keyof Groups, key: Link, value: SidebarMetadata) {
+  protected setItem(group: keyof any, key: keyof any, value: SidebarMetadata) {
     value.order = Object.keys(this.items).length;
     const parsedGroup = trimSlash(String(group)) === "" ? "" : trimSlash(String(group)) + "/";
-    const mergedKey = `/${parsedGroup}${trimSlash(key)}`;
+    const mergedKey = `/${parsedGroup}${trimSlash(String(key))}`;
+    // Merge the value if the key is already exist
     this.items = {
       ...this.items,
-      [mergedKey]: value as Items[Link],
+      [mergedKey]: {
+        ...this.items[mergedKey],
+        ...value,
+      },
     };
-    return this as unknown as Sidebar<Groups, Items & Record<Link, SidebarMetadata>>;
+    return this;
+  }
+
+  add<Link extends RelativeLink>(group: keyof Groups, key: Link, value: SidebarMetadata) {
+    return this.setItem(group, key, value) as unknown as Sidebar<Groups, Items & Record<Link, SidebarMetadata>>;
+  }
+
+  override(group: keyof Groups, key: keyof Items, value: SidebarMetadata) {
+    return this.setItem(group, key, value) as unknown as Sidebar<Groups, Items>;
   }
 
   /**
@@ -161,25 +173,7 @@ export class Sidebar<
     return groupItems;
   }
 
-  override(group: keyof Groups, key: keyof Items, value: SidebarMetadata) {
-    this.items = {
-      ...this.items,
-      ...(value as unknown as Items),
-    };
-    return this as unknown as Sidebar<Groups, Items>;
-  }
-
   clone(): Sidebar<Groups, Items> {
     return new Sidebar(this.groups, this.items);
   }
 }
-
-// const baseSidebar = new Sidebar()
-//   .addGroup("/", { text: "Start Reading", collapsed: true })
-//   .addGroup("/type-programming", { text: "Type Programming", collapsed: true })
-//   .addGroup("/type-programming/loop", { text: "Loop", collapsed: true })
-//   .add("/type-programming/loop", "/intro", { text: "Introduction" });
-
-// const thSidebar = baseSidebar.clone();
-
-// thSidebar.override("/type-programming/loop", "/intro", { text: "Mapped Types" });
