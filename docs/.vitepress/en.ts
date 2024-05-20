@@ -1,5 +1,8 @@
-import { DefaultTheme, defineConfig } from "vitepress";
-import { sidebar } from "./shared";
+import { defineConfig } from "vitepress";
+import { baseSidebar } from "./shared";
+
+export const enSidebar = baseSidebar.clone().toSidebarItems();
+// console.log(JSON.stringify(enSidebar, null, 2));
 
 // https://vitepress.dev/reference/site-config
 export const en = defineConfig({
@@ -11,7 +14,7 @@ export const en = defineConfig({
       { text: "Book", link: "/intro" },
     ],
 
-    sidebar: sidebar(),
+    sidebar: enSidebar,
 
     footer: {
       message:
@@ -20,9 +23,7 @@ export const en = defineConfig({
     },
 
     editLink: {
-      pattern:
-        "https://github.com/mildronize/type-safe-design-pattern/tree/main/docs/:path",
+      pattern: "https://github.com/mildronize/type-safe-design-pattern/tree/main/docs/:path",
     },
   },
 });
-

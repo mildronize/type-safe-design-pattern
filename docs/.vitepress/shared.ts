@@ -1,5 +1,6 @@
-import { type DefaultTheme, defineConfig } from "vitepress";
+import { defineConfig } from "vitepress";
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
+import { Sidebar } from "../../utils/utils";
 
 export const shared = defineConfig({
   lastUpdated: true,
@@ -39,86 +40,84 @@ interface SidebarOptions {
   locale?: string;
 }
 
-export function sidebar(options?: SidebarOptions): DefaultTheme.SidebarItem[] {
-  const isCollapsed = options?.isCollapsed ?? true;
-  const lang = options?.locale ? `/${options.locale}` : "";
-  return [
-    {
-      text: "Start Reading",
-      collapsed: isCollapsed,
-      items: [
-        { text: "Introduction", link: `${lang}/intro` },
-        { text: "What is Type-safe", link: `${lang}/type-safe` },
-        { text: "Project Structure", link: `${lang}/project-structure` },
-        { text: "Glossary", link: `${lang}/glossary` },
-        { text: "Examples", link: `${lang}/examples` },
-      ],
-    },
-    {
-      text: "Data Structure",
-      collapsed: isCollapsed,
-      base: `${lang}/data-structure/`,
-      items: [
-        { text: "Intro", link: "data-structure", docFooterText: "Intro to Data Structure" },
-        { text: "Literal Types", link: "literal-types" },
-        { text: "Tuple", link: "tuple" },
-        { text: "Record Object", link: "record-object" },
-      ],
-    },
-    {
-      text: "Type Programming",
-      collapsed: isCollapsed,
-      base: `${lang}/type-programming/`,
-      items: [
-        { text: "Intro", link: "type-programming", docFooterText: "Intro to Type Programming" },
-        { text: "Conditional Types", link: "conditional-types" },
-        {
-          text: "Loop",
-          collapsed: isCollapsed,
-          base: `${lang}/type-programming/loop/`,
-          items: [
-            {
-              text: "Mapped Types",
-              link: "mapped-types",
-            },
-            {
-              text: "Recursive Types",
-              link: "recursive-types",
-            },
-          ],
-        },
-        { text: "Template Literal Types", link: "template-literal-types" },
-        { text: "Testing", link: "testing" },
-        { text: "Examples", link: "examples" },
-      ],
-    },
-    {
-      text: "Design Patterns",
-      collapsed: isCollapsed,
-      base: `${lang}/design-patterns/`,
-      items: [
-        { text: "Intro", link: "design-patterns", docFooterText: "Intro to Design Patterns" },
-        { text: "Loosen and Tighten", link: "loosen-and-tighten" },
-        { text: "Builder Pattern", link: "builder-pattern" },
-        { text: "Function Overloading", link: "function-overload" },
-        { text: "Function Argument", link: "function-argument" },
-      ],
-    },
-    {
-      text: "Framework Pattern",
-      collapsed: isCollapsed,
-      base: `${lang}/framework-pattern/`,
-      items: [
-        { text: "Intro", link: "framework-pattern", docFooterText: "Intro to Framework Pattern" },
-        { text: "Config File", link: "config-file" },
-        { text: "Generate Dynamic Types", link: "generate-dynamic-types" },
-      ],
-    },
-    {
-      text: "Performance",
-      collapsed: isCollapsed,
-      base: `${lang}/performance/`,
-      items: [{ text: "Intro", link: "performance", docFooterText: "Intro to Performance" }],
-    },
-  ];
-}
+export const baseSidebar = new Sidebar({
+  collapsed: true,
+})
+  /**
+   * Start Reading Section
+   */
+  .addGroup("/", { text: "Start Reading" })
+  .add("/", "intro", { text: "Introduction", link: "/intro" })
+  .add("/", "type-safe", { text: "What is Type-safe", link: "/type-safe" })
+  .add("/", "project-structure", { text: "Project Structure", link: "/project-structure" })
+  .add("/", "glossary", { text: "Glossary", link: "/glossary" })
+  .add("/", "examples", { text: "Examples", link: "/examples" })
+  /**
+   * Data Structure Section
+   */
+  .addGroup("/data-structure", { text: "Data Structure" })
+  .add("/data-structure", "data-structure", {
+    text: "Intro",
+    link: "/data-structure",
+    docFooterText: "Intro to Data Structure",
+  })
+  .add("/data-structure", "literal-types", { text: "Literal Types", link: "/literal-types" })
+  .add("/data-structure", "tuple", { text: "Tuple", link: "/tuple" })
+  .add("/data-structure", "record-object", { text: "Record Object", link: "/record-object" })
+  /**
+   * Type Programming Section
+   */
+  .addGroup("/type-programming", { text: "Type Programming" })
+  .add("/type-programming", "type-programming", {
+    text: "Intro",
+    link: "/type-programming",
+    docFooterText: "Intro to Type Programming",
+  })
+  .add("/type-programming", "conditional-types", { text: "Conditional Types", link: "/conditional-types" })
+
+  .addGroup("/type-programming/loop", { text: "Loop" })
+  .add("/type-programming/loop", "mapped-types", { text: "Mapped Types", link: "/mapped-types" })
+  .add("/type-programming/loop", "recursive-types", { text: "Recursive Types", link: "/recursive-types" })
+
+  .add("/type-programming", "template-literal-types", {
+    text: "Template Literal Types",
+    link: "/template-literal-types",
+  })
+  .add("/type-programming", "testing", { text: "Testing", link: "/testing" })
+  .add("/type-programming", "examples", { text: "Examples", link: "/examples" })
+  /**
+   * Design Patterns Section
+   */
+  .addGroup("/design-patterns", { text: "Design Patterns" })
+  .add("/design-patterns", "design-patterns", {
+    text: "Intro",
+    link: "/design-patterns",
+    docFooterText: "Intro to Design Patterns",
+  })
+  .add("/design-patterns", "loosen-and-tighten", { text: "Loosen and Tighten", link: "/loosen-and-tighten" })
+  .add("/design-patterns", "builder-pattern", { text: "Builder Pattern", link: "/builder-pattern" })
+  .add("/design-patterns", "function-overload", { text: "Function Overloading", link: "/function-overload" })
+  .add("/design-patterns", "function-argument", { text: "Function Argument", link: "/function-argument" })
+  /**
+   * Framework Pattern Section
+   */
+  .addGroup("/framework-pattern", { text: "Framework Pattern" })
+  .add("/framework-pattern", "framework-pattern", {
+    text: "Intro",
+    link: "/framework-pattern",
+    docFooterText: "Intro to Framework Pattern",
+  })
+  .add("/framework-pattern", "config-file", { text: "Config File", link: "/config-file" })
+  .add("/framework-pattern", "generate-dynamic-types", {
+    text: "Generate Dynamic Types",
+    link: "/generate-dynamic-types",
+  })
+  /**
+   * Performance Section
+   */
+  .addGroup("/performance", { text: "Performance" })
+  .add("/performance", "performance", {
+    text: "Intro",
+    link: "/performance",
+    docFooterText: "Intro to Performance",
+  });

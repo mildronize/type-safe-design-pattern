@@ -1,5 +1,7 @@
 import { defineConfig } from "vitepress";
-import { sidebar } from "./shared";
+import { baseSidebar } from "./shared";
+
+export const thSidebar = baseSidebar.clone().override("/", "intro", { text: "แนะนำ" }).toSidebarItems("/th");
 
 export const th = defineConfig({
   lang: "th",
@@ -11,9 +13,7 @@ export const th = defineConfig({
       { text: "หน้าแรก", link: "/th" },
       { text: "หนังสือ", link: "/th/intro" },
     ],
-    sidebar: sidebar({
-      locale: "th",
-    }),
+    sidebar: thSidebar,
 
     footer: {
         message:
