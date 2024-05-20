@@ -62,8 +62,8 @@ export const baseSidebar = new Sidebar({
     docFooterText: "Intro to Data Structure",
   })
   .add("/data-structure", "literal-types", { text: "Literal Types", link: "/literal-types" })
-  .add("/data-structure", "tuple", { text: "Tuple", link: "/tuple" })
-  .add("/data-structure", "record-object", { text: "Record Object", link: "/record-object" })
+  .add("/data-structure", "tuple", { text: "Tuple Types", link: "/tuple" })
+  .add("/data-structure", "record-object", { text: "Record Types", link: "/record-object" })
   /**
    * Type Programming Section
    */

@@ -9,12 +9,40 @@ export const thSidebar = baseSidebar
   .clone()
   .overrideGroup("/", { text: "เริ่มต้นอ่าน" })
   .override("/", "intro", { text: "บทนำ", prefix })
-  .toSidebarItems();
-
+  .override("/", "type-safe", { text: "ความหมายของ Type-safe" })
+  .override("/", "project-structure", { text: "โครงสร้างโปรเจค" })
+  .override("/", "glossary", { text: "คลังคำศัพท์" })
+  .override("/", "examples", { text: "ตัวอย่าง" })
+  .overrideGroup("/data-structure", { text: "โครงสร้างข้อมูล" })
+  .override("/data-structure", "data-structure", { text: "บทนำ" })
+  // .override("/data-structure", "literal-types", { text: "ชนิดข้อมูล Literal" })
+  // .override("/data-structure", "tuple", { text: "ชนิดข้อมูล Tuple" })
+  // .override("/data-structure", "record-object", { text: "ชนิดข้อมูล Record" })
+  .overrideGroup("/type-programming", { text: "เขียนโปรแกรมด้วย Type" })
+  .override("/type-programming", "type-programming", { text: "บทนำ" })
+  .override("/type-programming", "conditional-types", { text: "เงื่อนไข (Conditional Types)" })
+  .overrideGroup("/type-programming/loop", { text: "การวนลูป" })
+  .override("/type-programming", "testing", { text: "การทดสอบ" })
+  .override("/type-programming", "examples", { text: "ตัวอย่าง" })
+  .overrideGroup("/design-patterns", { text: "รูปแบบการออกแบบ" })
+  .override("/design-patterns", "design-patterns", { text: "บทนำ" })
+  .override("/design-patterns", "loosen-and-tighten", { text: "ทำให้หลวมและแน่นขึ้น" })
+  .override("/design-patterns", "builder-pattern", { text: "รูปแบบ Builder Pattern" })
+  .override("/design-patterns", "function-overload", { text: "การใช้ Function หลายรูปแบบ" })
+  .override("/design-patterns", "function-argument", { text: "การใช้ Argument ชนิดข้อมูลเป็นฟังก์ชัน" })
+  .overrideGroup("/framework-pattern", { text: "การออกแบบของ Framework" })
+  .override("/framework-pattern", "framework-pattern", { text: "บทนำ" })
+  .override("/framework-pattern", "config-file", { text: "การใช้ไฟล์สำหรับการตั้งค่า" })
+  .override("/framework-pattern", "generate-dynamic-types", { text: "การสร้างชนิดข้อมูลแบบยืดหยุ่น" })
+  .overrideGroup("/performance", { text: "ประสิทธิภาพ" })
+  .override("/performance", "performance", { text: "บทนำ" })
+  .toSidebarItems()
+  
 export const th = defineConfig({
   lang: "th",
 
-  description: "ไทย",
+  // title: "รูปแบบที่ Type-safe",
+  description: "รูปแบบการออกแบบพร้อมใช้งานโดยมีชนิดข้อมูลที่ปลอดภัยใน typescript สมัยใหม่",
 
   themeConfig: {
     nav: [

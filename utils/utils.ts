@@ -13,6 +13,7 @@ export type BaseSidebar = Omit<DefaultTheme.SidebarItem, "items" | "base"> & {
   prefix?: string;
 };
 
+export type Mode = "add" | "override";
 export type SidebarMetadata = BaseSidebar;
 export type SidebarItem = BaseSidebar & {
   /**
@@ -69,8 +70,13 @@ export class Sidebar<
     return this.setGroup(group, value) as unknown as Sidebar<Groups & Record<Link, SidebarMetadata>, Items>;
   }
 
-  setGroup<Link extends AbsoluteLink>(group: Link, value: SidebarMetadata, preserveOrder = false) {
-    if (!preserveOrder) value.order = this.order++;
+  setGroup<Link extends AbsoluteLink>(group: Link, value: SidebarMetadata, mode: Mode = "add") {
+    if (mode === "add") value.order = this.order++;
+    if(mode === 'override'){
+      if(!this.groups[group]){
+        throw new Error(`Group '${group}' is not found`)
+      }
+    }
     // Merge the value if the key is already exist
     this.groups = {
       ...this.groups,
@@ -85,10 +91,15 @@ export class Sidebar<
     return this;
   }
 
-  protected setItem(group: keyof any, key: keyof any, value: SidebarMetadata, preserveOrder = false) {
-    if (!preserveOrder) value.order = this.order++;
+  protected setItem(group: keyof any, key: keyof any, value: SidebarMetadata, mode: Mode = "add") {
+    if (mode === "add") value.order = this.order++;
     const parsedGroup = trimSlash(String(group)) === "" ? "" : trimSlash(String(group)) + "/";
     const mergedKey = `/${parsedGroup}${trimSlash(String(key))}`;
+    if(mode === 'override'){
+      if(!this.items[mergedKey]){
+        throw new Error(`Item '${mergedKey}' is not found`)
+      }
+    }
     // Merge the value if the key is already exist
     this.items = {
       ...this.items,
@@ -105,11 +116,11 @@ export class Sidebar<
   }
 
   override(group: keyof Groups, key: keyof Items, value: SidebarMetadata) {
-    return this.setItem(group, key, value, true) as unknown as Sidebar<Groups, Items>;
+    return this.setItem(group, key, value, 'override') as unknown as Sidebar<Groups, Items>;
   }
 
   overrideGroup<Link extends AbsoluteLink>(group: Link, value: SidebarMetadata) {
-    return this.setGroup(group, value, true) as unknown as Sidebar<Groups, Items>;
+    return this.setGroup(group, value, 'override') as unknown as Sidebar<Groups, Items>;
   }
 
   /**
