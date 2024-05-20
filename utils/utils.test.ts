@@ -139,8 +139,8 @@ describe("Sidebar", () => {
       .addGroup("/loop", { text: "Loop" })
       .addGroup("/loop/mapped-types", { text: "Mapped Types" })
       .addGroup("/loop/recursive-types", { text: "Recursive Types" })
-      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/loop/mapped-types/intro` })
-      .add("/loop/recursive-types", "intro", { text: "Introduction", link: `/loop/recursive-types/intro` })
+      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/intro` })
+      .add("/loop/recursive-types", "intro", { text: "Introduction", link: `/intro` })
       .toSidebarItems();
 
     expect(sidebar).toStrictEqual([
@@ -174,11 +174,11 @@ describe("Sidebar Override", () => {
       .addGroup("/", { text: "Start Reading" })
       .addGroup("/loop", { text: "Loop" })
       .addGroup("/loop/mapped-types", { text: "Mapped Types" })
-      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/loop/mapped-types/intro` });
+      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/intro` });
 
     const sidebar = baseSidebar
       .clone()
-      .override("/loop/mapped-types", "intro", { text: "Mapped Types", link: `/loop/mapped-types` })
+      .override("/loop/mapped-types", "intro", { text: "Mapped Types", link: `/mapped-types` })
       .toSidebarItems();
 
     expect(sidebar).toStrictEqual([
@@ -193,7 +193,7 @@ describe("Sidebar Override", () => {
           {
             key: "/loop/mapped-types",
             text: "Mapped Types",
-            items: [{ key: "/loop/mapped-types/intro", text: "Mapped Types", link: `/loop/mapped-types` }],
+            items: [{ key: "/loop/mapped-types/intro", text: "Mapped Types", link: `/loop/mapped-types/mapped-types` }],
           },
         ],
       },
@@ -205,7 +205,7 @@ describe("Sidebar Override", () => {
       .addGroup("/", { text: "Start Reading" })
       .addGroup("/loop", { text: "Loop" })
       .addGroup("/loop/mapped-types", { text: "Mapped Types" })
-      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/loop/mapped-types/intro` });
+      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/intro` });
 
     const sidebar = baseSidebar
       .clone()
@@ -236,7 +236,7 @@ describe("Sidebar Override", () => {
       .addGroup("/", { text: "Start Reading" })
       .addGroup("/loop", { text: "Loop" })
       .addGroup("/loop/mapped-types", { text: "Mapped Types" })
-      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/loop/mapped-types/intro` });
+      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/intro` });
 
     const sidebar = baseSidebar
       .clone()
@@ -272,8 +272,8 @@ describe("Sidebar with default Optionas", () => {
       .addGroup("/loop", { text: "Loop" })
       .addGroup("/loop/mapped-types", { text: "Mapped Types" })
       .addGroup("/loop/recursive-types", { text: "Recursive Types" })
-      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/loop/mapped-types/intro` })
-      .add("/loop/recursive-types", "intro", { text: "Introduction", link: `/loop/recursive-types/intro` })
+      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/intro` })
+      .add("/loop/recursive-types", "intro", { text: "Introduction", link: `/intro` })
       .toSidebarItems();
 
     expect(sidebar).toStrictEqual([
@@ -303,8 +303,6 @@ describe("Sidebar with default Optionas", () => {
       },
     ]);
   });
-
-
 
 
 });

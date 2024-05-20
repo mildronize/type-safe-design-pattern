@@ -1,6 +1,4 @@
 import type { DefaultTheme } from "vitepress";
-import { sidebar } from '../docs/.vitepress/shared';
-import { link } from "fs";
 
 export type SidebarMetadata = Omit<DefaultTheme.SidebarItem, "items" | "base"> & {
   order?: number;
@@ -47,7 +45,7 @@ export class Sidebar<
       ...this.groups,
       [group]: value as Groups[Link],
     };
-    if(this.options.collapsed){
+    if (this.options.collapsed) {
       this.groups[group].collapsed = value.collapsed ?? this.options.collapsed;
     }
     return this as unknown as Sidebar<Groups & Record<Link, SidebarMetadata>, Items>;
@@ -148,36 +146,41 @@ export class Sidebar<
    * @param findKey
    * @param items
    */
-  protected setSidebarItemsWithKey(findKey: string, value: SingleSidebarItem, _groupItems: SidebarItem[]) {
+  protected setSidebarItemsWithKey(findKey: string, value: SingleSidebarItem, _groupItems: SidebarItem[], prefixLink: string) {
     for (const groupItem of _groupItems) {
       if (findKey === groupItem.key) {
         if (!groupItem.items) {
           groupItem.items = [];
         }
-        return groupItem.items.push(value);
+        const newValue = { ...value };
+        /**
+         * If the link is exist, append the link with the findKey (group prefix path)
+         */
+        if (newValue.link) {
+          const parsedFindKey = trimSlash(findKey) === "" ? "" : "/"+ trimSlash(findKey);
+          newValue.link = `${prefixLink}${parsedFindKey}/${trimSlash(newValue.link)}`;
+        }
+        return groupItem.items.push(newValue);
       }
       if (groupItem.items) {
-        this.setSidebarItemsWithKey(findKey, value, groupItem.items);
+        this.setSidebarItemsWithKey(findKey, value, groupItem.items, prefixLink);
       }
     }
   }
 
-  toSidebarItems(prefixLink = ''): SidebarItem[] {
+  toSidebarItems(prefixLink = ""): SidebarItem[] {
     const groupItems: SidebarItem[] = this.generateSidebarItemGroup();
 
     for (const [key, value] of Object.entries(this.items)) {
-      const { order, ...restValue } = value;
-      const sidebarItem = {
-        ...restValue,
-        link: restValue.link ? `${prefixLink}${restValue.link}` : undefined,
-      };
+      const { order, ...sidebarItem } = value;
       this.setSidebarItemsWithKey(
         this.getGroupKey(key),
         {
           key,
           ...sidebarItem,
         },
-        groupItems
+        groupItems,
+        prefixLink
       );
     }
     return groupItems;
