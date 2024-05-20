@@ -72,6 +72,23 @@ describe("Sidebar Group", () => {
       },
     ]);
   });
+
+  test("Add subgroup in missing parent group, should be error", () => {
+    const sidebar = new Sidebar()
+      .addGroup("/", { text: "Start Reading" })
+      .addGroup("/loop/mapped-types/examples", { text: "Examples" });
+
+    expect(() => sidebar.generateSidebarItemGroup()).toThrow(new Error("Parent group is not found or wrong order"));
+  });
+
+  test("Add subgroup in wrong order, should be error", () => {
+    const sidebar = new Sidebar()
+      .addGroup("/", { text: "Start Reading" })
+      .addGroup("/loop/mapped-types", { text: "Mapped Types" })
+      .addGroup("/loop", { text: "Loop" });
+
+    expect(() => sidebar.generateSidebarItemGroup()).toThrow(new Error("Parent group is not found or wrong order"));
+  });
 });
 
 describe("Sidebar", () => {

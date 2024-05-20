@@ -88,7 +88,7 @@ export class Sidebar<
         const parentKey = split.slice(0, i + 1).join("/");
         const parent = parentItems.find((item) => item.key === parentKey);
         if (!parent) {
-          throw new Error("Parent group is not found");
+          throw new Error("Parent group is not found or wrong order");
         }
         if (!parent.items) {
           parent.items = [];
@@ -109,7 +109,8 @@ export class Sidebar<
   }
 
   toSidebarItems(): SidebarItem[] {
-    const items: SidebarItem[] = [];
+    const items: SidebarItem[] = this.generateSidebarItemGroup();
+    
     return items;
   }
 
