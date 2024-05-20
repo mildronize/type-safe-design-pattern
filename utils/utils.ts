@@ -46,7 +46,7 @@ export class Sidebar<
 
   add<Link extends RelativeLink>(group: keyof Groups, key: Link, value: SidebarMetadata) {
     value.order = Object.keys(this.items).length;
-    const parsedGroup = trimSlash(String(group)) === '' ? '' : trimSlash(String(group)) + '/';
+    const parsedGroup = trimSlash(String(group)) === "" ? "" : trimSlash(String(group)) + "/";
     const mergedKey = `/${parsedGroup}${trimSlash(key)}`;
     this.items = {
       ...this.items,
@@ -117,41 +117,40 @@ export class Sidebar<
     return items;
   }
 
+  private getGroupKey(key: string) {
+    const split = trimSlash(key).split("/");
+    const groupKey = split.slice(0, split.length - 1).join("/");
+    return "/" + groupKey;
+  }
+  /**
+   * Loop in nested sidebar items and set the key and items.
+   * @param findKey
+   * @param items
+   */
+  protected setSidebarItemsWithKey(findKey: string, value: SingleSidebarItem, _groupItems: SidebarItem[]) {
+    console.log("groupKey: ", findKey);
+    for (const groupItem of _groupItems) {
+      if (findKey === groupItem.key) {
+        console.log(`Found "${groupItem.text}" with key: ${groupItem.key}`);
+        if (!groupItem.items) {
+          groupItem.items = [];
+        }
+        groupItem.items.push(value);
+        return;
+      }
+      if (groupItem.items) {
+        this.setSidebarItemsWithKey(findKey, value, groupItem.items);
+      }
+    }
+  }
+
   toSidebarItems(): SidebarItem[] {
     const groupItems: SidebarItem[] = this.generateSidebarItemGroup();
-    const getGroupKey = (key: string) => {
-      const split = trimSlash(key).split("/");
-      const groupKey = split.slice(0, split.length - 1).join("/");
-      return "/" + groupKey;
-    };
-    /**
-     * Loop in nested sidebar items and set the key and items.
-     * @param findKey
-     * @param items
-     */
-    const setSidebarItemsWithKey = (findKey: string, value: SingleSidebarItem, _groupItems: SidebarItem[]) => {
-      const groupKey = getGroupKey(findKey);
-      console.log("groupKey: ", groupKey);
-      for (const groupItem of _groupItems) {
-        if (groupKey === groupItem.key) {
-          console.log(`Found "${groupItem.text}" with key: ${groupItem.key}`);
-          if (!groupItem.items) {
-            groupItem.items = [];
-          }
-          groupItem.items.push(value);
-          return;
-        }
-        if (groupItem.items) {
-          setSidebarItemsWithKey(findKey, value, groupItem.items);
-        }
-      }
-    };
-    // console.log(this.items);
-    // console.log(JSON.stringify(groupItems, null, 2));
+
     for (const [key, value] of Object.entries(this.items)) {
       const { order, ...restValue } = value;
-      setSidebarItemsWithKey(
-        key,
+      this.setSidebarItemsWithKey(
+        this.getGroupKey(key),
         {
           key,
           ...restValue,
