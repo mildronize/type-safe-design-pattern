@@ -50,38 +50,28 @@ describe("Sidebar Group", () => {
     ]);
   });
 
-  test("Add Subgroup more than 3 level, should throw error", () => {
+  test("should add two sidebar groups and its subgroup", () => {
     const sidebar = new Sidebar()
       .addGroup("/", { text: "Start Reading" })
       .addGroup("/loop", { text: "Loop" })
       .addGroup("/loop/mapped-types", { text: "Mapped Types" })
       .addGroup("/loop/mapped-types/examples", { text: "Examples" });
 
-    expect(() => sidebar.generateSidebarItemGroup()).toThrowError();
+    expect(sidebar.generateSidebarItemGroup()).toStrictEqual([
+      { key: "/", text: "Start Reading" },
+      {
+        key: "/loop",
+        text: "Loop",
+        items: [
+          {
+            key: "/loop/mapped-types",
+            text: "Mapped Types",
+            items: [{ key: "/loop/mapped-types/examples", text: "Examples" }],
+          },
+        ],
+      },
+    ]);
   });
-
-  // test("should add two sidebar groups and its subgroup", () => {
-  //   const sidebar = new Sidebar()
-  //     .addGroup("/", { text: "Start Reading" })
-  //     .addGroup("/loop", { text: "Loop" })
-  //     .addGroup("/loop/mapped-types", { text: "Mapped Types" })
-  //     .addGroup("/loop/mapped-types/examples", { text: "Examples" });
-
-  //   expect(sidebar.generateSidebarItemGroup()).toStrictEqual([
-  //     { key: "/", text: "Start Reading" },
-  //     {
-  //       key: "/loop",
-  //       text: "Loop",
-  //       items: [
-  //         {
-  //           key: "/loop/mapped-types",
-  //           text: "Mapped Types",
-  //           items: [{ key: "/loop/mapped-types/examples", text: "Examples" }],
-  //         },
-  //       ],
-  //     },
-  //   ]);
-  // });
 });
 
 describe("Sidebar", () => {

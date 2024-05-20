@@ -75,9 +75,7 @@ export class Sidebar<
    * }
    * ```
    * 
-   * TODO: Add support for more than 2 hierarchy
    */
-
   public generateSidebarItemGroup(): SidebarItem[] {
     const items: SidebarItem[] = [];
     for (const [key, value] of Object.entries(this.groups)) {
@@ -85,39 +83,27 @@ export class Sidebar<
       if (split.length === 1) {
         throw new Error("Invalid group key, it should start with `/`");
       }
-      /**
-       * First hierarchy
-       */
-      if (split.length === 2) {
-        const isExist: boolean = items.some((item) => item.key === key);
-        if (isExist) {
-          throw new Error("Duplicate group key");
-        }
-        delete value.order;
-        items.push({
-          key,
-          ...value,
-        });
-        /**
-         * Second hierarchy
-         */
-      } else if (split.length === 3) {
-        const parentKey = split.slice(0, split.length - 1).join("/");
-        const parent = items.find((item) => item.key === parentKey);
+      let parentItems = items;
+      for (let i = 1; i < split.length - 1; i++) {
+        const parentKey = split.slice(0, i + 1).join("/");
+        const parent = parentItems.find((item) => item.key === parentKey);
         if (!parent) {
           throw new Error("Parent group is not found");
         }
         if (!parent.items) {
           parent.items = [];
         }
-        delete value.order;
-        parent.items.push({
-          key,
-          ...value,
-        });
-      } else {
-        throw new Error("Unsupported nested group hierarchy more than 2");
+        parentItems = parent.items;
       }
+      const isExist: boolean = parentItems.some((item) => item.key === key);
+      if (isExist) {
+        throw new Error("Duplicate group key");
+      }
+      delete value.order;
+      parentItems.push({
+        key,
+        ...value,
+      });
     }
     return items;
   }
