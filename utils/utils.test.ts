@@ -285,7 +285,7 @@ describe("Sidebar Override", () => {
     ]);
   });
 
-  test("Add group and sidebar, then override, with prefix link", () => {
+  test("Add group and sidebar, then override, with global prefix link", () => {
     const baseSidebar = new Sidebar()
       .addGroup("/", { text: "Start Reading" })
       .addGroup("/loop", { text: "Loop" })
@@ -310,6 +310,41 @@ describe("Sidebar Override", () => {
             key: "/loop/mapped-types",
             text: "Mapped Types",
             items: [{ key: "/loop/mapped-types/intro", text: "Mapped Types", link: `/th/loop/mapped-types/intro` }],
+          },
+        ],
+      },
+    ]);
+  });
+
+  test("Add group and sidebar, then override, with item prefix link", () => {
+    const baseSidebar = new Sidebar()
+      .addGroup("/", { text: "Start Reading" })
+      .addGroup("/loop", { text: "Loop" })
+      .addGroup("/loop/mapped-types", { text: "Mapped Types" })
+      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/intro` })
+      .add("/loop/mapped-types", "intro2", { text: "Introduction 2", link: `/intro2` });
+
+    const sidebar = baseSidebar
+      .clone()
+      .override("/loop/mapped-types", "intro", { text: "Mapped Types", prefix: '/th' })
+      .toSidebarItems("");
+
+    expect(sidebar).toStrictEqual([
+      {
+        key: "/",
+        text: "Start Reading",
+      },
+      {
+        key: "/loop",
+        text: "Loop",
+        items: [
+          {
+            key: "/loop/mapped-types",
+            text: "Mapped Types",
+            items: [
+              { key: "/loop/mapped-types/intro", text: "Mapped Types", link: `/th/loop/mapped-types/intro` },
+              { key: "/loop/mapped-types/intro2", text: "Introduction 2", link: `/loop/mapped-types/intro2` },
+            ],
           },
         ],
       },

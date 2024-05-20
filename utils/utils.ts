@@ -1,19 +1,26 @@
 import type { DefaultTheme } from "vitepress";
 
-export type SidebarMetadata = Omit<DefaultTheme.SidebarItem, "items" | "base"> & {
+export type BaseSidebar = Omit<DefaultTheme.SidebarItem, "items" | "base"> & {
+  /**
+   * The order of the sidebar item.
+   */
   order?: number;
+  /**
+   * The prefix link for the sidebar item. Example, use for locale
+   *
+   * @example `/th`
+   */
+  prefix?: string;
 };
-export type SidebarItem = Omit<DefaultTheme.SidebarItem, "items"> & {
+
+export type SidebarMetadata = BaseSidebar;
+export type SidebarItem = BaseSidebar & {
   /**
    * The unique key for the sidebar item. It is the full path of the sidebar item.
    *
    * @example `/type-programming/loop/mapped-types`
    */
   key: string;
-  /**
-   * The order of the sidebar item.
-   */
-  order?: number;
   items?: SidebarItem[];
 };
 export type SingleSidebarItem = Omit<SidebarItem, "items">;
@@ -181,25 +188,27 @@ export class Sidebar<
     findKey: string,
     value: SingleSidebarItem,
     _groupItems: SidebarItem[],
-    prefixLink: string
+    globalPrefixLink?: string
   ) {
     for (const groupItem of _groupItems) {
       if (findKey === groupItem.key) {
         if (!groupItem.items) {
           groupItem.items = [];
         }
-        const newValue = { ...value };
+        // const newValue = { prefix, ...value };
+        const { prefix, ...newValue } = value;
         /**
          * If the link is exist, append the link with the findKey (group prefix path)
          */
         if (newValue.link) {
           const parsedFindKey = trimSlash(findKey) === "" ? "" : "/" + trimSlash(findKey);
+          const prefixLink = prefix ?? globalPrefixLink ?? "";
           newValue.link = `${prefixLink}${parsedFindKey}/${trimSlash(newValue.link)}`;
         }
         return groupItem.items.push(newValue);
       }
       if (groupItem.items) {
-        this.setSidebarItemsWithKey(findKey, value, groupItem.items, prefixLink);
+        this.setSidebarItemsWithKey(findKey, value, groupItem.items, globalPrefixLink);
       }
     }
   }
@@ -225,7 +234,7 @@ export class Sidebar<
     });
   }
 
-  toSidebarItems(prefixLink = ""): SidebarItem[] {
+  toSidebarItems(prefixLink?: string): SidebarItem[] {
     const groupItems: SidebarItem[] = this.generateSidebarItemGroup();
 
     for (const [key, value] of Object.entries(this.items)) {

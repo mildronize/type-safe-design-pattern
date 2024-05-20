@@ -2,11 +2,14 @@ import { defineConfig } from "vitepress";
 import { baseSidebar } from "./shared";
 
 const prefix = "/th";
+/**
+ * Note: Use prefix only tranlated page
+ */
 export const thSidebar = baseSidebar
   .clone()
   .overrideGroup("/", { text: "เริ่มต้นอ่าน" })
-  .override("/", "intro", { text: "บทนำ" })
-  .toSidebarItems(prefix);
+  .override("/", "intro", { text: "บทนำ", prefix })
+  .toSidebarItems();
 
 export const th = defineConfig({
   lang: "th",
