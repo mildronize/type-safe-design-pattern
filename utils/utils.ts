@@ -10,6 +10,10 @@ export type SidebarItem = Omit<DefaultTheme.SidebarItem, "items"> & {
    * @example `/type-programming/loop/mapped-types`
    */
   key: string;
+  /**
+   * The order of the sidebar item.
+   */
+  order?: number;
   items?: SidebarItem[];
 };
 export type SingleSidebarItem = Omit<SidebarItem, "items">;
@@ -66,8 +70,8 @@ export class Sidebar<
     return this as unknown as Sidebar<Groups & Record<Link, SidebarMetadata>, Items>;
   }
 
-  protected setItem(group: keyof any, key: keyof any, value: SidebarMetadata) {
-    value.order = this.order++;
+  protected setItem(group: keyof any, key: keyof any, value: SidebarMetadata, preserveOrder = false) {
+    if (!preserveOrder) value.order = this.order++;
     const parsedGroup = trimSlash(String(group)) === "" ? "" : trimSlash(String(group)) + "/";
     const mergedKey = `/${parsedGroup}${trimSlash(String(key))}`;
     // Merge the value if the key is already exist
@@ -86,7 +90,7 @@ export class Sidebar<
   }
 
   override(group: keyof Groups, key: keyof Items, value: SidebarMetadata) {
-    return this.setItem(group, key, value) as unknown as Sidebar<Groups, Items>;
+    return this.setItem(group, key, value, true) as unknown as Sidebar<Groups, Items>;
   }
 
   /**
@@ -142,7 +146,7 @@ export class Sidebar<
       if (isExist) {
         throw new Error("Duplicate group key");
       }
-      if (this.options.isRemoveOrder) delete value.order;
+      // if (this.options.isRemoveOrder) delete value.order;
       parentItems.push({
         key,
         ...value,
@@ -188,21 +192,42 @@ export class Sidebar<
     }
   }
 
+  sortSidebarItems(sidebarItems: SidebarItem[]): SidebarItem[] {
+    return sidebarItems
+      .map((item) => {
+        const newItem = { ...item };
+        if (newItem.items) newItem.items = this.sortSidebarItems(newItem.items);
+        return newItem;
+      })
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  }
+
+  removeOrder(sidebarItems: SidebarItem[]): SidebarItem[] {
+    return sidebarItems.map((item) => {
+      const newItem = { ...item };
+      if (newItem.items) {
+        newItem.items = this.removeOrder(newItem.items);
+      }
+      delete newItem.order;
+      return newItem;
+    });
+  }
+
   toSidebarItems(prefixLink = ""): SidebarItem[] {
     const groupItems: SidebarItem[] = this.generateSidebarItemGroup();
 
     for (const [key, value] of Object.entries(this.items)) {
-      const { order, ...restValue } = value;
       const sidebarItem = {
         key,
-        ...restValue,
+        ...value,
       };
-      if (this.options.isRemoveOrder === false) {
-        (sidebarItem as SidebarMetadata).order = order;
-      }
       this.setSidebarItemsWithKey(this.getGroupKey(key), sidebarItem, groupItems, prefixLink);
     }
-    return groupItems;
+    const output = this.sortSidebarItems(groupItems);
+    if (this.options.isRemoveOrder) {
+      return this.removeOrder(output);
+    }
+    return output;
   }
 
   clone(): Sidebar<Groups, Items> {

@@ -9,14 +9,14 @@ describe("Sidebar Group", () => {
 
   test("should add a sidebar group", () => {
     const sidebar = new Sidebar().addGroup("/", { text: "Start Reading" });
-    expect(sidebar.generateSidebarItemGroup()).toStrictEqual([{ key: "/", text: "Start Reading" }]);
+    expect(sidebar.generateSidebarItemGroup()).toStrictEqual([{ key: "/", text: "Start Reading", order: 0 }]);
   });
 
   test("should add two sidebar groups", () => {
     const sidebar = new Sidebar().addGroup("/", { text: "Start Reading" }).addGroup("/loop", { text: "Loop" });
     expect(sidebar.generateSidebarItemGroup()).toStrictEqual([
-      { key: "/", text: "Start Reading" },
-      { key: "/loop", text: "Loop" },
+      { key: "/", text: "Start Reading", order: 0 },
+      { key: "/loop", text: "Loop", order: 1 },
     ]);
   });
 
@@ -26,8 +26,8 @@ describe("Sidebar Group", () => {
       .addGroup("/loop", { text: "Loop" })
       .addGroup("/loop/mapped-types", { text: "Mapped Types" });
     expect(sidebar.generateSidebarItemGroup()).toStrictEqual([
-      { key: "/", text: "Start Reading" },
-      { key: "/loop", text: "Loop", items: [{ key: "/loop/mapped-types", text: "Mapped Types" }] },
+      { key: "/", text: "Start Reading", order: 0 },
+      { key: "/loop", text: "Loop", order: 1, items: [{ key: "/loop/mapped-types", text: "Mapped Types", order: 2 }] },
     ]);
   });
 
@@ -38,13 +38,14 @@ describe("Sidebar Group", () => {
       .addGroup("/loop/mapped-types", { text: "Mapped Types" })
       .addGroup("/loop/recursive-types", { text: "Recursive Types" });
     expect(sidebar.generateSidebarItemGroup()).toStrictEqual([
-      { key: "/", text: "Start Reading" },
+      { key: "/", text: "Start Reading", order: 0 },
       {
         key: "/loop",
         text: "Loop",
+        order: 1,
         items: [
-          { key: "/loop/mapped-types", text: "Mapped Types" },
-          { key: "/loop/recursive-types", text: "Recursive Types" },
+          { key: "/loop/mapped-types", text: "Mapped Types", order: 2 },
+          { key: "/loop/recursive-types", text: "Recursive Types", order: 3 },
         ],
       },
     ]);
@@ -58,15 +59,17 @@ describe("Sidebar Group", () => {
       .addGroup("/loop/mapped-types/examples", { text: "Examples" });
 
     expect(sidebar.generateSidebarItemGroup()).toStrictEqual([
-      { key: "/", text: "Start Reading" },
+      { key: "/", text: "Start Reading", order: 0 },
       {
         key: "/loop",
         text: "Loop",
+        order: 1,
         items: [
           {
             key: "/loop/mapped-types",
             text: "Mapped Types",
-            items: [{ key: "/loop/mapped-types/examples", text: "Examples" }],
+            order: 2,
+            items: [{ key: "/loop/mapped-types/examples", text: "Examples", order: 3 }],
           },
         ],
       },
@@ -231,6 +234,44 @@ describe("Sidebar Override", () => {
     ]);
   });
 
+  test("Add group and sidebar, then override, with partial metadata, keep order", () => {
+    const baseSidebar = new Sidebar({
+      isRemoveOrder: false,
+    })
+      .addGroup("/", { text: "Start Reading" })
+      .addGroup("/loop", { text: "Loop" })
+      .addGroup("/loop/mapped-types", { text: "Mapped Types" })
+      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/intro` });
+
+    const sidebar = baseSidebar
+      .clone()
+      .override("/loop/mapped-types", "intro", { text: "Mapped Types" })
+      .toSidebarItems();
+
+    expect(sidebar).toStrictEqual([
+      {
+        key: "/",
+        order: 0,
+        text: "Start Reading",
+      },
+      {
+        key: "/loop",
+        order: 1,
+        text: "Loop",
+        items: [
+          {
+            key: "/loop/mapped-types",
+            text: "Mapped Types",
+            order: 2,
+            items: [
+              { key: "/loop/mapped-types/intro", text: "Mapped Types", link: `/loop/mapped-types/intro`, order: 3 },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
+
   test("Add group and sidebar, then override, with prefix link", () => {
     const baseSidebar = new Sidebar()
       .addGroup("/", { text: "Start Reading" })
@@ -303,6 +344,4 @@ describe("Sidebar with default Optionas", () => {
       },
     ]);
   });
-
-
 });
