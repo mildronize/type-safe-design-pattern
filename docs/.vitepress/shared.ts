@@ -1,6 +1,5 @@
 import { DefaultTheme, defineConfig } from "vitepress";
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
-const isCollapsed = true;
 
 export const shared = defineConfig({
   lastUpdated: true,
@@ -80,11 +79,11 @@ export function sidebar(options?: SidebarOptions): DefaultTheme.SidebarItem[] {
           items: [
             {
               text: "Mapped Types",
-              link: "mapped-types"
+              link: "mapped-types",
             },
             {
               text: "Recursive Types",
-              link: "recursive-types"
+              link: "recursive-types",
             },
           ],
         },
@@ -112,6 +111,7 @@ export function sidebar(options?: SidebarOptions): DefaultTheme.SidebarItem[] {
       items: [
         { text: "Intro", link: "framework-pattern", docFooterText: "Intro to Framework Pattern" },
         { text: "Config File", link: "config-file" },
+        { text: "Generate Dynamic Types", link: "generate-dynamic-types" },
       ],
     },
     {
