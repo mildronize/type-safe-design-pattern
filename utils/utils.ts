@@ -23,7 +23,20 @@ export type RelativeLink = string;
  */
 export const trimSlash = (str: string) => str.replace(/^\/|\/$/g, "");
 
-export type SidebarOptions = Pick<DefaultTheme.SidebarItem, "collapsed">;
+export type SidebarOptions = Pick<DefaultTheme.SidebarItem, "collapsed"> & {
+  /**
+   * The initial order for the sidebar item.
+   *
+   * @default 0
+   */
+  initialOrder?: number;
+  /**
+   * Remove the order from the sidebar item.
+   *
+   * @default true
+   */
+  isRemoveOrder?: boolean;
+};
 
 export class Sidebar<
   Groups extends Record<AbsoluteLink, SidebarMetadata> = {},
@@ -32,15 +45,17 @@ export class Sidebar<
   items: Items = {} as Items;
   groups: Groups = {} as Groups;
   options: SidebarOptions = {};
-
+  order: number;
   constructor(options?: SidebarOptions, group?: Groups, items?: Items) {
     this.groups = group ?? ({} as Groups);
     this.items = items ?? ({} as Items);
     this.options = options ?? {};
+    this.options.isRemoveOrder = this.options.isRemoveOrder ?? true;
+    this.order = this.options.initialOrder ?? 0;
   }
 
   addGroup<Link extends AbsoluteLink>(group: Link, value: SidebarMetadata) {
-    value.order = Object.keys(this.groups).length;
+    value.order = this.order++;
     this.groups = {
       ...this.groups,
       [group]: value as Groups[Link],
@@ -52,7 +67,7 @@ export class Sidebar<
   }
 
   protected setItem(group: keyof any, key: keyof any, value: SidebarMetadata) {
-    value.order = Object.keys(this.items).length;
+    value.order = this.order++;
     const parsedGroup = trimSlash(String(group)) === "" ? "" : trimSlash(String(group)) + "/";
     const mergedKey = `/${parsedGroup}${trimSlash(String(key))}`;
     // Merge the value if the key is already exist
@@ -127,7 +142,7 @@ export class Sidebar<
       if (isExist) {
         throw new Error("Duplicate group key");
       }
-      delete value.order;
+      if (this.options.isRemoveOrder) delete value.order;
       parentItems.push({
         key,
         ...value,
@@ -146,7 +161,12 @@ export class Sidebar<
    * @param findKey
    * @param items
    */
-  protected setSidebarItemsWithKey(findKey: string, value: SingleSidebarItem, _groupItems: SidebarItem[], prefixLink: string) {
+  protected setSidebarItemsWithKey(
+    findKey: string,
+    value: SingleSidebarItem,
+    _groupItems: SidebarItem[],
+    prefixLink: string
+  ) {
     for (const groupItem of _groupItems) {
       if (findKey === groupItem.key) {
         if (!groupItem.items) {
@@ -157,7 +177,7 @@ export class Sidebar<
          * If the link is exist, append the link with the findKey (group prefix path)
          */
         if (newValue.link) {
-          const parsedFindKey = trimSlash(findKey) === "" ? "" : "/"+ trimSlash(findKey);
+          const parsedFindKey = trimSlash(findKey) === "" ? "" : "/" + trimSlash(findKey);
           newValue.link = `${prefixLink}${parsedFindKey}/${trimSlash(newValue.link)}`;
         }
         return groupItem.items.push(newValue);
@@ -172,21 +192,27 @@ export class Sidebar<
     const groupItems: SidebarItem[] = this.generateSidebarItemGroup();
 
     for (const [key, value] of Object.entries(this.items)) {
-      const { order, ...sidebarItem } = value;
-      this.setSidebarItemsWithKey(
-        this.getGroupKey(key),
-        {
-          key,
-          ...sidebarItem,
-        },
-        groupItems,
-        prefixLink
-      );
+      const { order, ...restValue } = value;
+      const sidebarItem = {
+        key,
+        ...restValue,
+      };
+      if (this.options.isRemoveOrder === false) {
+        (sidebarItem as SidebarMetadata).order = order;
+      }
+      this.setSidebarItemsWithKey(this.getGroupKey(key), sidebarItem, groupItems, prefixLink);
     }
     return groupItems;
   }
 
   clone(): Sidebar<Groups, Items> {
-    return new Sidebar(this.options, this.groups, this.items);
+    return new Sidebar(
+      {
+        ...this.options,
+        initialOrder: this.order,
+      },
+      this.groups,
+      this.items
+    );
   }
 }
