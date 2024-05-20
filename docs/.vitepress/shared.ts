@@ -1,4 +1,4 @@
-import { DefaultTheme, defineConfig } from "vitepress";
+import { type DefaultTheme, defineConfig } from "vitepress";
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 
 export const shared = defineConfig({

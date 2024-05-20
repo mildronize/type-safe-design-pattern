@@ -241,7 +241,7 @@ describe("Sidebar Override", () => {
     const sidebar = baseSidebar
       .clone()
       .override("/loop/mapped-types", "intro", { text: "Mapped Types" })
-      .toSidebarItems('/th');
+      .toSidebarItems("/th");
 
     expect(sidebar).toStrictEqual([
       {
@@ -261,4 +261,50 @@ describe("Sidebar Override", () => {
       },
     ]);
   });
+});
+
+describe("Sidebar with default Optionas", () => {
+  test("Add group and sidebar, with default options and can override", () => {
+    const sidebar = new Sidebar({
+      collapsed: true,
+    })
+      .addGroup("/", { text: "Start Reading", collapsed: false })
+      .addGroup("/loop", { text: "Loop" })
+      .addGroup("/loop/mapped-types", { text: "Mapped Types" })
+      .addGroup("/loop/recursive-types", { text: "Recursive Types" })
+      .add("/loop/mapped-types", "intro", { text: "Introduction", link: `/loop/mapped-types/intro` })
+      .add("/loop/recursive-types", "intro", { text: "Introduction", link: `/loop/recursive-types/intro` })
+      .toSidebarItems();
+
+    expect(sidebar).toStrictEqual([
+      {
+        key: "/",
+        collapsed: false,
+        text: "Start Reading",
+      },
+      {
+        key: "/loop",
+        collapsed: true,
+        text: "Loop",
+        items: [
+          {
+            key: "/loop/mapped-types",
+            collapsed: true,
+            text: "Mapped Types",
+            items: [{ key: "/loop/mapped-types/intro", text: "Introduction", link: `/loop/mapped-types/intro` }],
+          },
+          {
+            key: "/loop/recursive-types",
+            collapsed: true,
+            text: "Recursive Types",
+            items: [{ key: "/loop/recursive-types/intro", text: "Introduction", link: `/loop/recursive-types/intro` }],
+          },
+        ],
+      },
+    ]);
+  });
+
+
+
+
 });

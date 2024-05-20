@@ -25,16 +25,20 @@ export type RelativeLink = string;
  */
 export const trimSlash = (str: string) => str.replace(/^\/|\/$/g, "");
 
+export type SidebarOptions = Pick<DefaultTheme.SidebarItem, "collapsed">;
+
 export class Sidebar<
   Groups extends Record<AbsoluteLink, SidebarMetadata> = {},
   Items extends Record<RelativeLink, SidebarMetadata> = {}
 > {
   items: Items = {} as Items;
   groups: Groups = {} as Groups;
+  options: SidebarOptions = {};
 
-  constructor(group?: Groups, items?: Items) {
+  constructor(options?: SidebarOptions, group?: Groups, items?: Items) {
     this.groups = group ?? ({} as Groups);
     this.items = items ?? ({} as Items);
+    this.options = options ?? {};
   }
 
   addGroup<Link extends AbsoluteLink>(group: Link, value: SidebarMetadata) {
@@ -43,6 +47,9 @@ export class Sidebar<
       ...this.groups,
       [group]: value as Groups[Link],
     };
+    if(this.options.collapsed){
+      this.groups[group].collapsed = value.collapsed ?? this.options.collapsed;
+    }
     return this as unknown as Sidebar<Groups & Record<Link, SidebarMetadata>, Items>;
   }
 
@@ -142,15 +149,12 @@ export class Sidebar<
    * @param items
    */
   protected setSidebarItemsWithKey(findKey: string, value: SingleSidebarItem, _groupItems: SidebarItem[]) {
-    console.log("groupKey: ", findKey);
     for (const groupItem of _groupItems) {
       if (findKey === groupItem.key) {
-        console.log(`Found "${groupItem.text}" with key: ${groupItem.key}`);
         if (!groupItem.items) {
           groupItem.items = [];
         }
-        groupItem.items.push(value);
-        return;
+        return groupItem.items.push(value);
       }
       if (groupItem.items) {
         this.setSidebarItemsWithKey(findKey, value, groupItem.items);
@@ -180,6 +184,6 @@ export class Sidebar<
   }
 
   clone(): Sidebar<Groups, Items> {
-    return new Sidebar(this.groups, this.items);
+    return new Sidebar(this.options, this.groups, this.items);
   }
 }
