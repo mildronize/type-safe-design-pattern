@@ -94,6 +94,19 @@ describe("Sidebar Group", () => {
   });
 });
 
+// sidebar group can override
+
+describe("Sidebar Group Override", () => {
+  test("should add sidebar groups and override", () => {
+    const baseSidebar = new Sidebar().addGroup("/", { text: "Start Reading" }).addGroup("/loop", { text: "Loop" });
+    const sidebar = baseSidebar.clone().overrideGroup("/loop", { text: "Loop Override" });
+    expect(sidebar.toSidebarItems()).toStrictEqual([
+      { key: "/", text: "Start Reading" },
+      { key: "/loop", text: "Loop Override" },
+    ]);
+  });
+});
+
 describe("Sidebar", () => {
   test("should create a sidebar", () => {
     const sidebar = new Sidebar();

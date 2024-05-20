@@ -59,15 +59,23 @@ export class Sidebar<
   }
 
   addGroup<Link extends AbsoluteLink>(group: Link, value: SidebarMetadata) {
-    value.order = this.order++;
+    return this.setGroup(group, value) as unknown as Sidebar<Groups & Record<Link, SidebarMetadata>, Items>;
+  }
+
+  setGroup<Link extends AbsoluteLink>(group: Link, value: SidebarMetadata, preserveOrder = false) {
+    if (!preserveOrder) value.order = this.order++;
+    // Merge the value if the key is already exist
     this.groups = {
       ...this.groups,
-      [group]: value as Groups[Link],
+      [group]: {
+        ...this.groups[group],
+        ...value,
+      },
     };
     if (this.options.collapsed) {
       this.groups[group].collapsed = value.collapsed ?? this.options.collapsed;
     }
-    return this as unknown as Sidebar<Groups & Record<Link, SidebarMetadata>, Items>;
+    return this;
   }
 
   protected setItem(group: keyof any, key: keyof any, value: SidebarMetadata, preserveOrder = false) {
@@ -91,6 +99,10 @@ export class Sidebar<
 
   override(group: keyof Groups, key: keyof Items, value: SidebarMetadata) {
     return this.setItem(group, key, value, true) as unknown as Sidebar<Groups, Items>;
+  }
+
+  overrideGroup<Link extends AbsoluteLink>(group: Link, value: SidebarMetadata) {
+    return this.setGroup(group, value, true) as unknown as Sidebar<Groups, Items>;
   }
 
   /**
