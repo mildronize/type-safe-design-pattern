@@ -56,3 +56,9 @@ The type-safe design patterns is not suitable for every project. It is intended 
 
 ## Contributing
 If you have any suggestions or feedback, please feel free to open an issue or submit a pull request on [GitHub](https://github.com/mildronize/type-safe-design-pattern)
+
+You can both contibute to the content and the translation:
+
+- **Content Contribution**, you can contribute by adding new design patterns, best practices, or improving the existing content, this is allowed only through the English version.
+- **Translation Contribution**, you can contribute by translating the content to your language. I've recommened to use the prompt from the generative AI like GPT-3, GPT-4, etc. to generate the content for the page. You can see the example in the [Prompt](./prompt.md) page.
+  - For consistency, please do not translate the content directly, but use the prompt to generate the content. When result of the prompt is not good, you update your prompt condition and try again, you can see the example in the [Thai Prompt](/th/prompt.md) page.

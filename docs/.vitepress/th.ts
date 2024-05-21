@@ -9,10 +9,10 @@ export const thSidebar = baseSidebar
   .clone()
   .overrideGroup("/", { text: "เริ่มต้นอ่าน" })
   .override("/", "intro", { text: "บทนำ", prefix })
-  .override("/", "type-safe", { text: "ความหมายของ Type-safe" })
-  .override("/", "project-structure", { text: "โครงสร้างโปรเจค" })
-  .override("/", "glossary", { text: "คลังคำศัพท์" })
-  .override("/", "examples", { text: "ตัวอย่าง" })
+  .override("/", "type-safe", { text: "ความหมายของ Type-safe", prefix })
+  .override("/", "project-structure", { text: "โครงสร้างโปรเจค", prefix })
+  .override("/", "glossary", { text: "คลังคำศัพท์", prefix  })
+  .override("/", "examples", { text: "ตัวอย่าง", prefix  })
   .overrideGroup("/data-structure", { text: "โครงสร้างข้อมูล" })
   .override("/data-structure", "data-structure", { text: "บทนำ" })
   // .override("/data-structure", "literal-types", { text: "ชนิดข้อมูล Literal" })
@@ -41,12 +41,11 @@ export const thSidebar = baseSidebar
 export const th = defineConfig({
   lang: "th",
 
-  // title: "รูปแบบที่ Type-safe",
   description: "รูปแบบการออกแบบพร้อมใช้งานโดยมีชนิดข้อมูลที่ปลอดภัยใน typescript สมัยใหม่",
 
   themeConfig: {
     nav: [
-      { text: "หน้าแรก", link: prefix },
+      { text: "หน้าแรก", link: prefix + '/' },
       { text: "หนังสือ", link: prefix + "/intro" },
     ],
     sidebar: thSidebar,
