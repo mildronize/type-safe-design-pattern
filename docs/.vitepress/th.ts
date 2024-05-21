@@ -3,7 +3,7 @@ import { baseSidebar } from "./shared";
 
 const prefix = "/th";
 /**
- * Note: Use prefix only tranlated page
+ * Note: Use prefix only tranlated page, the page is not translated will remove the link.
  */
 export const thSidebar = baseSidebar
   .clone()
@@ -11,17 +11,20 @@ export const thSidebar = baseSidebar
   .override("/", "intro", { text: "บทนำ", prefix })
   .override("/", "type-safe", { text: "ความหมายของ Type-safe", prefix })
   .override("/", "project-structure", { text: "โครงสร้างโปรเจค", prefix })
-  .override("/", "glossary", { text: "คลังคำศัพท์", prefix  })
-  .override("/", "examples", { text: "ตัวอย่าง", prefix  })
+  .override("/", "glossary", { text: "คลังคำศัพท์", prefix })
+  .override("/", "examples", { text: "ตัวอย่าง", prefix })
   .overrideGroup("/data-structure", { text: "โครงสร้างข้อมูล" })
   .override("/data-structure", "data-structure", { text: "บทนำ" })
-  // .override("/data-structure", "literal-types", { text: "ชนิดข้อมูล Literal" })
-  // .override("/data-structure", "tuple", { text: "ชนิดข้อมูล Tuple" })
-  // .override("/data-structure", "record-object", { text: "ชนิดข้อมูล Record" })
+  .override("/data-structure", "literal-types", {})
+  .override("/data-structure", "tuple", {})
+  .override("/data-structure", "record-object", {})
   .overrideGroup("/type-programming", { text: "เขียนโปรแกรมด้วย Type" })
   .override("/type-programming", "type-programming", { text: "บทนำ" })
   .override("/type-programming", "conditional-types", { text: "เงื่อนไข (Conditional Types)" })
   .overrideGroup("/type-programming/loop", { text: "การวนลูป" })
+  .override("/type-programming/loop", "mapped-types", {})
+  .override("/type-programming/loop", "recursive-types", {})
+  .override("/type-programming", "template-literal-types", {})
   .override("/type-programming", "testing", { text: "การทดสอบ" })
   .override("/type-programming", "examples", { text: "ตัวอย่าง" })
   .overrideGroup("/design-patterns", { text: "รูปแบบการออกแบบ" })
@@ -36,8 +39,8 @@ export const thSidebar = baseSidebar
   .override("/framework-pattern", "generate-dynamic-types", { text: "การสร้างชนิดข้อมูลแบบยืดหยุ่น" })
   .overrideGroup("/performance", { text: "ประสิทธิภาพ" })
   .override("/performance", "performance", { text: "บทนำ" })
-  .toSidebarItems()
-  
+  .toSidebarItems();
+
 export const th = defineConfig({
   lang: "th",
 
@@ -45,7 +48,7 @@ export const th = defineConfig({
 
   themeConfig: {
     nav: [
-      { text: "หน้าแรก", link: prefix + '/' },
+      { text: "หน้าแรก", link: prefix + "/" },
       { text: "หนังสือ", link: prefix + "/intro" },
     ],
     sidebar: thSidebar,

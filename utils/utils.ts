@@ -11,6 +11,12 @@ export type BaseSidebar = Omit<DefaultTheme.SidebarItem, "items" | "base"> & {
    * @example `/th`
    */
   prefix?: string;
+  /**
+   * Is override the sidebar item. 
+   * 
+   * @internal This is for internal use only.
+   */
+  isOverrided?: boolean;
 };
 
 export type Mode = "add" | "override";
@@ -48,6 +54,11 @@ export type SidebarOptions = Pick<DefaultTheme.SidebarItem, "collapsed"> & {
    * @default true
    */
   isRemoveOrder?: boolean;
+
+  /**
+   * Add extra messages for the sidebar item when the sidebar is override but not set the prefix.
+   */
+  extraMessage?: string;
 };
 
 export class Sidebar<
@@ -99,6 +110,7 @@ export class Sidebar<
       if(!this.items[mergedKey]){
         throw new Error(`Item '${mergedKey}' is not found`)
       }
+      this.items[mergedKey].isOverrided = true;
     }
     // Merge the value if the key is already exist
     this.items = {
@@ -206,15 +218,20 @@ export class Sidebar<
         if (!groupItem.items) {
           groupItem.items = [];
         }
-        // const newValue = { prefix, ...value };
-        const { prefix, ...newValue } = value;
+        const { prefix, isOverrided, link, ...newValue } = value;
         /**
          * If the link is exist, append the link with the findKey (group prefix path)
          */
-        if (newValue.link) {
+        if (link) {
           const parsedFindKey = trimSlash(findKey) === "" ? "" : "/" + trimSlash(findKey);
           const prefixLink = prefix ?? globalPrefixLink ?? "";
-          newValue.link = `${prefixLink}${parsedFindKey}/${trimSlash(newValue.link)}`;
+          const newLink = `${prefixLink}${parsedFindKey}/${trimSlash(link)}`;
+          if(prefixLink === '' && this.options.extraMessage && isOverrided){
+            newValue.text = `${newValue.text} ${this.options.extraMessage}`;
+          } else {
+            (newValue as SingleSidebarItem).link = newLink;
+          }
+          
         }
         return groupItem.items.push(newValue);
       }

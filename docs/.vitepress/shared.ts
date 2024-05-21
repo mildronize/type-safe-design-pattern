@@ -42,6 +42,7 @@ interface SidebarOptions {
 
 export const baseSidebar = new Sidebar({
   collapsed: true,
+  extraMessage: "🚧",
 })
   /**
    * Start Reading Section
