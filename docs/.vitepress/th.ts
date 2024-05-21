@@ -1,29 +1,66 @@
 import { defineConfig } from "vitepress";
-import { sidebar } from "./shared";
+import { baseSidebar } from "./shared";
+
+const prefix = "/th";
+/**
+ * Note: Use prefix only tranlated page, the page is not translated will remove the link.
+ */
+export const thSidebar = baseSidebar
+  .clone()
+  .overrideGroup("/", { text: "เริ่มต้นอ่าน" })
+  .override("/", "intro", { text: "บทนำ", prefix })
+  .override("/", "type-safe", { text: "ความหมายของ Type-safe", prefix })
+  .override("/", "project-structure", { text: "โครงสร้างโปรเจกต์", prefix })
+  .override("/", "glossary", { text: "คลังคำศัพท์", prefix })
+  .override("/", "examples", { text: "ตัวอย่าง", prefix })
+  .overrideGroup("/data-structure", { text: "โครงสร้างข้อมูล" })
+  .override("/data-structure", "data-structure", { text: "บทนำ" })
+  .override("/data-structure", "literal-types", {})
+  .override("/data-structure", "tuple", {})
+  .override("/data-structure", "record-object", {})
+  .overrideGroup("/type-programming", { text: "เขียนโปรแกรมด้วย Type" })
+  .override("/type-programming", "type-programming", { text: "บทนำ" })
+  .override("/type-programming", "conditional-types", { text: "เงื่อนไข (Conditional Types)" })
+  .overrideGroup("/type-programming/loop", { text: "การวนลูป" })
+  .override("/type-programming/loop", "mapped-types", {})
+  .override("/type-programming/loop", "recursive-types", {})
+  .override("/type-programming", "template-literal-types", {})
+  .override("/type-programming", "testing", { text: "การทดสอบ" })
+  .override("/type-programming", "examples", { text: "ตัวอย่าง" })
+  .overrideGroup("/design-patterns", { text: "รูปแบบการออกแบบ" })
+  .override("/design-patterns", "design-patterns", { text: "บทนำ" })
+  .override("/design-patterns", "loosen-and-tighten", { text: "ทำให้หลวมและแน่นขึ้น" })
+  .override("/design-patterns", "builder-pattern", { text: "รูปแบบ Builder Pattern" })
+  .override("/design-patterns", "function-overload", { text: "การใช้ Function หลายรูปแบบ" })
+  .override("/design-patterns", "function-argument", { text: "การใช้ Argument ชนิดข้อมูลเป็นฟังก์ชัน" })
+  .overrideGroup("/framework-pattern", { text: "การออกแบบของ Framework" })
+  .override("/framework-pattern", "framework-pattern", { text: "บทนำ" })
+  .override("/framework-pattern", "config-file", { text: "การใช้ไฟล์สำหรับการตั้งค่า" })
+  .override("/framework-pattern", "generate-dynamic-types", { text: "การสร้างชนิดข้อมูลแบบยืดหยุ่น" })
+  .overrideGroup("/performance", { text: "ประสิทธิภาพ" })
+  .override("/performance", "performance", { text: "บทนำ" })
+  .toSidebarItems();
 
 export const th = defineConfig({
   lang: "th",
-  
-  description: "ไทย",
+
+  description: "รูปแบบการออกแบบพร้อมใช้งานโดยมีชนิดข้อมูลที่ปลอดภัยใน typescript สมัยใหม่",
 
   themeConfig: {
     nav: [
-      { text: "หน้าแรก", link: "/th" },
-      { text: "หนังสือ", link: "/th/intro" },
+      { text: "หน้าแรก", link: prefix + "/" },
+      { text: "หนังสือ", link: prefix + "/intro" },
     ],
-    sidebar: sidebar({
-      locale: "th",
-    }),
+    sidebar: thSidebar,
 
     footer: {
-        message:
-          'เนื้อหาอยู่ภายใต้ใบอนุญาต <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="blank">CC BY-NC-ND 4.0</a>',
-        copyright: `ลิขสิทธิ์ © 2567-${new Date().getFullYear()+543} ธาดา หวังธรรมมั่ง`,
-      },
-  
-      editLink: {
-        pattern:
-          "https://github.com/mildronize/type-safe-design-pattern/tree/main/docs/th/:path",
-      },
+      message:
+        'เนื้อหาอยู่ภายใต้ใบอนุญาต <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="blank">CC BY-NC-ND 4.0</a>',
+      copyright: `ลิขสิทธิ์ © 2567-${new Date().getFullYear() + 543} ธาดา หวังธรรมมั่ง`,
+    },
+
+    editLink: {
+      pattern: "https://github.com/mildronize/type-safe-design-pattern/tree/main/docs/th/:path",
+    },
   },
 });

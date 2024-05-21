@@ -15,7 +15,7 @@ The TypeScript compiler configuration file is `tsconfig.json`. This file is used
 ## Project Structure
 
 ::: warning Disclaimer
-Organizing the project structure and types may vary depending on the project's size and complexity. From my experience, the following structure works well for most projects. However, the specific needs and context of a project might necessitate deviations from these practices. Flexibility and critical thinking are key in effectively applying these principles.
+Organizing the project structure and types may vary depending on the project's size and complexity. From my experience, the following project structure design works well for most projects. However, the specific needs and context of a project might necessitate deviations from these practices. Flexibility and critical thinking are key in effectively applying these principles.
 :::
 
 ### Module Organization

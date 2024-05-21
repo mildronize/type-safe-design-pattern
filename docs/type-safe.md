@@ -4,7 +4,7 @@
 **Type-safe** ensures data types are correct and consistent in programs, especially in modern languages like TypeScript. Key characteristics include using generic and [template literal types](./type-programming/template-literal-types), the builder pattern, automatic type inference, and reducing type duplication. Examples of TypeScript projects utilizing type-safe design include Zod, tRPC, Hono, and Elysia.
 :::
 
-Many in the programming community frequently mention **"type-safe,"** yet few attempt to define it clearly. Here, I aim to provide a concise definition:
+Many in the programming community frequently mention **"type-safe,"** yet few attempt to define it clearly. For more clarity, let's break down what type-safe means in the context of modern programming languages like TypeScript in my understanding.
 
 Type-safe is a design pattern that ensures data types are correct and consistent within a program. This pattern is particularly valuable in modern programming languages like TypeScript, which boasts a powerful type system to enhance program correctness and reliability.
 

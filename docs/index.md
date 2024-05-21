@@ -13,6 +13,9 @@ hero:
     - theme: alt
       text: What is Type-safe?
       link: /type-safe
+    - theme: alt
+      text: อ่านภาษาไทย 🚧
+      link: /th/intro
 
 features:
   - title: 🎉 &nbsp; Next Level TypeScript 
