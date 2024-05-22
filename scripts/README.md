@@ -126,3 +126,72 @@ This page is special page that collect the prompt from generative AI for example
 ## รายการข้อความเริ่มต้นในภาษาไทย
 - [ข้อความเริ่มต้นภาษาไทย](./th/prompt.md)
 ```
+
+## Prompt Recommendation
+
+Using english prompt can saver the token usage, so it is recommended to use english prompt as much as possible.
+From the following example, I've use the same input but with english prompt.
+
+The token usage is 1448, which is less than the previous one which is 2027 (about 579 tokens less).
+
+```markdown
+Translate to Thai and you must strictly follow the rules below:
+
+- Never touch HTML-like tags such as `<Notes>`.
+- Choosing Thai words:
+    - The word `ฉัน` should be replaced with `ผม`.
+    - The word `ของตน` should be replaced with `ของตัวเอง`.
+    - The word `การอนุมาน` should be replaced with `การคาดเดา`.
+- Choosing translations from English, where if a term is mentioned for the first time in the entire translated document, it should be followed by the original English term in parentheses.
+    - The term `Type-safe` should be translated as `ชนิดข้อมูลแบบปลอดภัย`.
+    - The term `Best Practice` should be translated as `แนวปฏิบัติที่ดีนำไปใช้งานได้จริง`.
+    - The term `Design Pattern` should be translated as `แนวทางการออกแบบ`.
+    - The term `Modular` should be translated as `โมดูล`.
+    - The term `Inline Types` should be translated as `ชนิดข้อมูลแบบใกล้เคียง`.
+    - The term `Shared Types` should be translated as `ชนิดข้อมูลที่ใช้ร่วมกัน`.
+    - The term `Common/Global Types` should be translated as `ชนิดข้อมูลทั่วไป/ใช้ร่วมกันทั้งโปรเจกต์`.
+    - The term `global declarations` should be translated as `การประกาศสำหรับใช้ร่วมกันทั้งโปรเจกต์`.
+    - The term `global types` should be translated as `ชนิดข้อมูลสำหรับใช้ร่วมกันทั้งโปรเจกต์`.
+    - The term `third-party libraries` should be translated as `ไลบรารีที่ติดตั้งจากภายนอก`.
+    - The term `built-in types` should be translated as `ชนิดข้อมูลที่มีมาให้ใช้งานเริ่มต้น`.
+- Words that do not require parentheses with the original English term:
+    - `Example`
+    - `Error`
+    - `Contributing`
+    - `Glossary`
+- Choosing translations from English:
+    - The term `Modern` should be translated as `สมัยใหม่`.
+    - The term `Prerequisites` should be translated as `สิ่งที่ควรเรียนรู้มาก่อน`.
+    - The term `Recommended Reading` should be translated as `หนังสือและเอกสารที่แนะนำให้อ่าน`.
+    - The term `Disclaimer` should be translated as `คำชี้แจงที่สำคัญ`.
+    - The phrase `open an issue ... on Github` should be translated as `เปิด Issue ... บน Github`.
+    - The term `Traditional Type` should be translated as `การประกาศชนิดข้อมูลแบบดั้งเดิม`.
+    - The term `type inference` should be translated as `การคาดเดาชนิดข้อมูล`.
+    - The term `type system` should be translated as `ระบบชนิดข้อมูล`.
+    - The terms `definition of types` or `type definition` should be translated as `การประกาศชนิดข้อมูล`.
+    - The phrase `Let's break down` should be translated as `ลองพยายามอธิบาย`.
+    - The term `Type loosing` should be translated as `การทำให้ชนิดข้อมูลหลวมลง`.
+    - The term `Type tightening` should be translated as `การทำให้ชนิดข้อมูลเข้มข้นขึ้น`.
+    - The term `codebase` should be translated as `โค้ด`.
+    - The term `TypeScript Libraries` should be translated as `ไลบรารี TypeScript`.
+    - The term `Glossary` should be translated as `คลังคำศัพท์`.
+    - The term `Project` should be translated as `โปรเจกต์`.
+    - The phrase `catch ... errors` should be translated as `เจอ ... ข้อผิดพลาด`.
+    - The term `data interfaces` should be translated as `interface ของข้อมูล`.
+- Choosing words based on context, which may be translated differently in various places:
+    - The term `Type` may be translated as `ชนิดข้อมูล` or `ประเภท` depending on the context.
+- Words that do not require translation:
+    - `Pull Request`
+    - `Libraries`
+    - `E-book`
+    - `business logic`
+    - `Domain`
+
+
+# Prompt
+
+This page is special page that collect the prompt from generative AI for example GPT-3, GPT-4, etc. The prompt is used to generate the content for the page.
+
+## Localization Prompt List
+- [Thai Prompt](./th/prompt.md)
+```
