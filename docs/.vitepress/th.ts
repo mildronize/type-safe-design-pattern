@@ -10,6 +10,7 @@ export const thSidebar = baseSidebar
   .overrideGroup("/", { text: "เริ่มต้นอ่าน" })
   .override("/", "intro", { text: "บทนำ", prefix })
   .override("/", "type-safe", { text: "ความหมายของ Type-safe", prefix })
+  .override("/","when-type-safe", { text: "เมื่อไหร่ควรใช้ Type-safe" })
   .override("/", "project-structure", { text: "โครงสร้างโปรเจกต์", prefix })
   .override("/", "glossary", { text: "คลังคำศัพท์", prefix })
   .override("/", "examples", { text: "ตัวอย่าง", prefix })
