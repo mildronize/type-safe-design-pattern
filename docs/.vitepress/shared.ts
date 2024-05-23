@@ -1,4 +1,4 @@
-import { defineConfig } from "vitepress";
+import { defineConfig, type HeadConfig } from "vitepress";
 import { transformerTwoslash } from "@shikijs/vitepress-twoslash";
 import { Sidebar } from "../../utils/utils";
 
@@ -22,22 +22,32 @@ export const shared = defineConfig({
     },
   },
 
-  head: [
+  head: [...googleFonts(), ...googleAnalytics("G-LWNNLXVF0K")],
+});
+
+function googleAnalytics(tagManagerId: string): HeadConfig[] {
+  return [
+    ["script", { async: "", src: `https://www.googletagmanager.com/gtag/js?id=${tagManagerId}` }],
+    [
+      "script",
+      {},
+      `window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '${tagManagerId}');`,
+    ],
+  ];
+}
+
+function googleFonts(): HeadConfig[] {
+  return [
     ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
     ["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
     [
       "link",
       { href: "https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap", rel: "stylesheet" },
     ],
-  ],
-});
-
-interface SidebarOptions {
-  isCollapsed?: boolean;
-  /**
-   * @default '' (Means en for English)
-   */
-  locale?: string;
+  ];
 }
 
 export const baseSidebar = new Sidebar({
