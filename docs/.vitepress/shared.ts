@@ -65,7 +65,7 @@ export const baseSidebar = new Sidebar({
    */
   .addGroup("/", { text: "Start Reading" })
   .add("/", "intro", { text: "Introduction", link: "/intro" })
-  .add("/", "type-safe", { text: "What is Type-safe", link: "/type-safe" })
+  .add("/", "type-safe", { text: "What is Type-safe", link: "/what-type-safe" })
   .add("/", "project-structure", { text: "Project Structure", link: "/project-structure" })
   .add("/", "glossary", { text: "Glossary", link: "/glossary" })
   .add("/", "examples", { text: "Examples", link: "/examples" })
