@@ -1,3 +1,5 @@
+// TODO: Migrate to open source npm library: https://github.com/thaitype/vitepress-type-safe-i18n-navbar
+
 import type { DefaultTheme } from "vitepress";
 
 export type BaseSidebar = Omit<DefaultTheme.SidebarItem, "items" | "base"> & {

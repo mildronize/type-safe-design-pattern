@@ -25,6 +25,12 @@ export const shared = defineConfig({
   head: [...googleFonts(), ...googleAnalytics("G-LWNNLXVF0K")],
 });
 
+/**
+ * Add Google Analytics 
+ * @ref https://vitepress.dev/reference/site-config#example-using-google-analytics
+ * @param tagManagerId 
+ * @returns 
+ */
 function googleAnalytics(tagManagerId: string): HeadConfig[] {
   return [
     ["script", { async: "", src: `https://www.googletagmanager.com/gtag/js?id=${tagManagerId}` }],
