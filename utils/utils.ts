@@ -2,6 +2,7 @@
 
 import type { DefaultTheme } from "vitepress";
 
+
 export type BaseSidebar = Omit<DefaultTheme.SidebarItem, "items" | "base"> & {
   /**
    * The order of the sidebar item.
@@ -14,8 +15,8 @@ export type BaseSidebar = Omit<DefaultTheme.SidebarItem, "items" | "base"> & {
    */
   prefix?: string;
   /**
-   * Is override the sidebar item. 
-   * 
+   * Is override the sidebar item.
+   *
    * @internal This is for internal use only.
    */
   isOverrided?: boolean;
@@ -85,9 +86,9 @@ export class Sidebar<
 
   setGroup<Link extends AbsoluteLink>(group: Link, value: SidebarMetadata, mode: Mode = "add") {
     if (mode === "add") value.order = this.order++;
-    if(mode === 'override'){
-      if(!this.groups[group]){
-        throw new Error(`Group '${group}' is not found`)
+    if (mode === "override") {
+      if (!this.groups[group]) {
+        throw new Error(`Group '${group}' is not found`);
       }
     }
     // Merge the value if the key is already exist
@@ -108,9 +109,9 @@ export class Sidebar<
     if (mode === "add") value.order = this.order++;
     const parsedGroup = trimSlash(String(group)) === "" ? "" : trimSlash(String(group)) + "/";
     const mergedKey = `/${parsedGroup}${trimSlash(String(key))}`;
-    if(mode === 'override'){
-      if(!this.items[mergedKey]){
-        throw new Error(`Item '${mergedKey}' is not found`)
+    if (mode === "override") {
+      if (!this.items[mergedKey]) {
+        throw new Error(`Item '${mergedKey}' is not found`);
       }
       this.items[mergedKey].isOverrided = true;
     }
@@ -125,16 +126,22 @@ export class Sidebar<
     return this;
   }
 
-  add<Link extends RelativeLink>(group: keyof Groups, key: Link, value: SidebarMetadata) {
-    return this.setItem(group, key, value) as unknown as Sidebar<Groups, Items & Record<Link, SidebarMetadata>>;
+  // Extract<keyof Groups, string> is to ensure that the key is a string
+
+  add<Link extends RelativeLink, Group extends Extract<keyof Groups, string>, Key extends `${Group}/${Link}`>(
+    group: Group,
+    key: Link,
+    value: SidebarMetadata
+  ) {
+    return this.setItem(group, key, value) as unknown as Sidebar<Groups, Items & Record<Key, SidebarMetadata>>;
   }
 
   override(group: keyof Groups, key: keyof Items, value: SidebarMetadata) {
-    return this.setItem(group, key, value, 'override') as unknown as Sidebar<Groups, Items>;
+    return this.setItem(group, key, value, "override") as unknown as Sidebar<Groups, Items>;
   }
 
   overrideGroup<Link extends AbsoluteLink>(group: Link, value: SidebarMetadata) {
-    return this.setGroup(group, value, 'override') as unknown as Sidebar<Groups, Items>;
+    return this.setGroup(group, value, "override") as unknown as Sidebar<Groups, Items>;
   }
 
   /**
@@ -228,12 +235,11 @@ export class Sidebar<
           const parsedFindKey = trimSlash(findKey) === "" ? "" : "/" + trimSlash(findKey);
           const prefixLink = prefix ?? globalPrefixLink ?? "";
           const newLink = `${prefixLink}${parsedFindKey}/${trimSlash(link)}`;
-          if(prefixLink === '' && this.options.extraMessage && isOverrided){
+          if (prefixLink === "" && this.options.extraMessage && isOverrided) {
             newValue.text = `${newValue.text} ${this.options.extraMessage}`;
           } else {
             (newValue as SingleSidebarItem).link = newLink;
           }
-          
         }
         return groupItem.items.push(newValue);
       }
