@@ -23,6 +23,12 @@ I am currently writing a new E-book. Please follow and support!This book is for 
 
 Moreover, I have not seen any books or articles that cover these topics. I hope this book will help you improve your TypeScript code quality and design. I will publish the book on Leanpub. I will update the progress on X (Twitter). Please follow me on X (Twitter) [@mildronize](https://x.com/mildronize). I've been working on this book for a while, and I hope to finish it soon. I would love to hear feedback from the community because at that time when I'm writing, I haven't seen anyone write about this yet.
 
+## Why I wrote this book
+
+When I started learning TypeScript, I think design type-safe code is a bit challenging. I've seen many people use type-safe design patterns in their projects, but I couldn't find any resources that explain how to use them. It's too much subjective and hard to understand. I've learned type-safe design patterns from various modern TypeScript open-source projects, and write my own Azure Functions Framework called [Nammtham](https://nammatham.thaitype.dev/). I've learned a lot from these projects. 
+
+I decided to write this book to help other developers who are struggling with type-safe design patterns. I hope this book will help you improve your TypeScript code quality and design.
+
 ## How the book is structured
 
 The book is divided into several sections, each covering a different topic. The sections are as follows:
