@@ -105,11 +105,11 @@ const baseSidebar = new Sidebar()
   .addGroup("/", { text: "Start Reading", collapsed: true })
   .addGroup("/type-programming", { text: "Type Programming", collapsed: true })
   .addGroup("/type-programming/loop", { text: "Loop", collapsed: true })
-  .add("/type-programming/loop", "/intro", { text: "Introduction" });
+  .add("/type-programming/loop", "intro", { text: "Introduction" });
 
 const thSidebar = baseSidebar.clone();
 
-thSidebar.override("/type-programming/loop", "/intro", { text: "Mapped Types" });
+thSidebar.override("/type-programming/loop", "intro", { text: "Mapped Types" });
 ```
 
 In this example, we define a `Sidebar` class that uses a record object to manage sidebar items in Vitepress. The `Sidebar` class has two generic parameters: `Groups` and `Items`. The `Groups` parameter is a record object with keys of type `AbsoluteLink` and values of type `SidebarMetadata`. The `Items` parameter is a record object with keys of type `RelativeLink` and values of type `SidebarMetadata`.

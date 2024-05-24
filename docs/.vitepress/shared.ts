@@ -26,10 +26,10 @@ export const shared = defineConfig({
 });
 
 /**
- * Add Google Analytics 
+ * Add Google Analytics
  * @ref https://vitepress.dev/reference/site-config#example-using-google-analytics
- * @param tagManagerId 
- * @returns 
+ * @param tagManagerId
+ * @returns
  */
 function googleAnalytics(tagManagerId: string): HeadConfig[] {
   return [
@@ -96,6 +96,7 @@ export const baseSidebar = new Sidebar({
   })
   .add("/basic-types", "tuple", { text: "Tuple Types", link: "/tuple" })
   .add("/basic-types", "record-object", { text: "Record Types", link: "/record-object" })
+  .add("/basic-types", "generics", { text: "Generics", link: "/generics" })
   /**
    * Type Programming Section
    */

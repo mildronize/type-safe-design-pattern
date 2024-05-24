@@ -29,9 +29,16 @@ When I started learning TypeScript, I think design type-safe code is a bit chall
 
 I decided to write this book to help other developers who are struggling with type-safe design patterns. I hope this book will help you improve your TypeScript code quality and design.
 
+## Prerequisites
+Please make sure you have a good understanding of TypeScript before reading this book. If you are new to TypeScript, I recommend reading the [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) first.
+
+Generics are a fundamental concept in TypeScript, so make sure you understand them. You can read the [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) section of the TypeScript Handbook. 
+
 ## How the book is structured
 
-The book is divided into several sections, each covering a different topic. The sections are as follows:
+From the book prerequisites, it is recommended to have a good understanding of TypeScript before reading this book. However, if you are already familiar with TypeScript, you can jump to a specific section that interests you. Each section will provide the necessary prerequisites and type knowledge that you need to know before reading it. So, you don't necessarily have to read the book from start to finish.
+
+The book is divided into several sections, each covering a different topic. Each section is linked together, the sections are as follows:
 
 - Section 1: Start Reading
 - Section 2: Design Guideline
@@ -40,12 +47,6 @@ The book is divided into several sections, each covering a different topic. The 
 - Section 5: Design Patterns
 - Section 6: Framework Patterns
 - Section 7: Performance
-
-
-## Prerequisites
-Please make sure you have a good understanding of TypeScript before reading this book. If you are new to TypeScript, I recommend reading the [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) first.
-
-Generics are a fundamental concept in TypeScript, so make sure you understand them. You can read the [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) section of the TypeScript Handbook. 
 
 ## Recommended Reading
 
