@@ -66,8 +66,6 @@ export const baseSidebar = new Sidebar({
   .addGroup("/", { text: "Start Reading" })
   .add("/", "intro", { text: "Introduction", link: "/intro" })
   .add("/", "type-safe", { text: "What is Type-safe", link: "/what-type-safe" })
-  .add("/", "when-type-safe", { text: "When Type-safe", link: "/when-type-safe" })
-  .add("/", "project-structure", { text: "Project Structure", link: "/project-structure" })
   .add("/", "glossary", { text: "Glossary", link: "/glossary" })
   .add("/", "examples", { text: "Examples", link: "/examples" })
   /**
@@ -79,6 +77,8 @@ export const baseSidebar = new Sidebar({
     link: "/design-guideline",
     docFooterText: "Intro to Design Guideline",
   })
+  .add("/design-guideline", "when-type-safe", { text: "When Type-safe", link: "/when-type-safe" })
+  .add("/design-guideline", "project-structure", { text: "Project Structure", link: "/project-structure" })
   /**
    * Basic Types Section
    */
@@ -109,8 +109,6 @@ export const baseSidebar = new Sidebar({
   .addGroup("/type-programming/loop", { text: "Loop" })
   .add("/type-programming/loop", "mapped-types", { text: "Mapped Types", link: "/mapped-types" })
   .add("/type-programming/loop", "recursive-types", { text: "Recursive Types", link: "/recursive-types" })
-
-
   .add("/type-programming", "testing", { text: "Testing", link: "/testing" })
   .add("/type-programming", "examples", { text: "Examples", link: "/examples" })
   /**
