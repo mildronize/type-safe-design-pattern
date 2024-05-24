@@ -71,13 +71,22 @@ export const baseSidebar = new Sidebar({
   .add("/", "glossary", { text: "Glossary", link: "/glossary" })
   .add("/", "examples", { text: "Examples", link: "/examples" })
   /**
+   * Design Guideline Section
+   */
+  .addGroup("/design-guideline", { text: "Design Guideline" })
+  .add("/design-guideline", "design-guideline", {
+    text: "Intro",
+    link: "/design-guideline",
+    docFooterText: "Intro to Design Guideline",
+  })
+  /**
    * Basic Types Section
    */
   .addGroup("/basic-types", { text: "Basic Types" })
   .add("/basic-types", "basic-types", {
     text: "Intro",
     link: "/basic-types",
-    docFooterText: "Intro to Data Structure",
+    docFooterText: "Intro to Basic Types",
   })
   .add("/basic-types", "literal-types", { text: "Literal Types", link: "/literal-types" })
   .add("/basic-types", "template-literal-types", {
@@ -118,9 +127,9 @@ export const baseSidebar = new Sidebar({
   .add("/design-patterns", "function-overload", { text: "Function Overloading", link: "/function-overload" })
   .add("/design-patterns", "function-argument", { text: "Function Argument", link: "/function-argument" })
   /**
-   * Framework Pattern Section
+   * Framework Patterns Section
    */
-  .addGroup("/framework-pattern", { text: "Framework Pattern" })
+  .addGroup("/framework-pattern", { text: "Framework Patterns" })
   .add("/framework-pattern", "framework-pattern", {
     text: "Intro",
     link: "/framework-pattern",
