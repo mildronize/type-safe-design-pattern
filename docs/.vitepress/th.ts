@@ -10,6 +10,7 @@ export const thSidebar = baseSidebar
   .overrideGroup("/", { text: "เริ่มต้นอ่าน" })
   .override("/", "intro", { text: "บทนำ", prefix })
   .override("/", "type-safe", { text: "ความหมายของ Type-safe", prefix })
+  .override("/","when-type-safe", { text: "เมื่อไหร่ควรใช้ Type-safe" })
   .override("/", "project-structure", { text: "โครงสร้างโปรเจกต์", prefix })
   .override("/", "glossary", { text: "คลังคำศัพท์", prefix })
   .override("/", "examples", { text: "ตัวอย่าง", prefix })
@@ -47,6 +48,25 @@ export const th = defineConfig({
   description: "รูปแบบการออกแบบพร้อมใช้งานโดยมีชนิดข้อมูลที่ปลอดภัยใน typescript สมัยใหม่",
 
   themeConfig: {
+    outline: {
+      label: "สารบัญ",
+    },
+    docFooter: {
+      next: "หน้าถัดไป",
+      prev: "หน้าก่อนหน้า",
+    },
+    lastUpdated: {
+      text: "อัพเดทล่าสุดเมื่อวันที่",
+      formatOptions: {
+        timeZone: "Asia/Bangkok",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        forceLocale: true,
+        hour: "numeric",
+        minute: "numeric",
+      },
+    },
     nav: [
       { text: "หน้าแรก", link: prefix + "/" },
       { text: "หนังสือ", link: prefix + "/intro" },
@@ -60,7 +80,8 @@ export const th = defineConfig({
     },
 
     editLink: {
-      pattern: "https://github.com/mildronize/type-safe-design-pattern/tree/main/docs/th/:path",
+      pattern: "https://github.com/mildronize/type-safe-design-pattern/tree/main/docs/:path",
+      text: "แก้ไขหน้านี้บน GitHub",
     },
   },
 });

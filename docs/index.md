@@ -12,7 +12,7 @@ hero:
       link: /intro
     - theme: alt
       text: What is Type-safe?
-      link: /type-safe
+      link: /what-type-safe
     - theme: alt
       text: อ่านภาษาไทย 🚧
       link: /th/intro

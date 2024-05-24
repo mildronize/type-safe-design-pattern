@@ -12,7 +12,7 @@ hero:
       link: /th/intro
     - theme: alt
       text: ความหมายของ Type-safe?
-      link: /type-safe
+      link: /th/what-type-safe
 
 features:
   - title: 🎉 &nbsp; ยกระดับทักษะ TypeScript
