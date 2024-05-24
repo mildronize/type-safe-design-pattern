@@ -80,6 +80,10 @@ export const baseSidebar = new Sidebar({
     docFooterText: "Intro to Data Structure",
   })
   .add("/data-structure", "literal-types", { text: "Literal Types", link: "/literal-types" })
+  .add("/data-structure", "template-literal-types", {
+    text: "Template Literal Types",
+    link: "/template-literal-types",
+  })
   .add("/data-structure", "tuple", { text: "Tuple Types", link: "/tuple" })
   .add("/data-structure", "record-object", { text: "Record Types", link: "/record-object" })
   /**
@@ -97,10 +101,7 @@ export const baseSidebar = new Sidebar({
   .add("/type-programming/loop", "mapped-types", { text: "Mapped Types", link: "/mapped-types" })
   .add("/type-programming/loop", "recursive-types", { text: "Recursive Types", link: "/recursive-types" })
 
-  .add("/type-programming", "template-literal-types", {
-    text: "Template Literal Types",
-    link: "/template-literal-types",
-  })
+
   .add("/type-programming", "testing", { text: "Testing", link: "/testing" })
   .add("/type-programming", "examples", { text: "Examples", link: "/examples" })
   /**

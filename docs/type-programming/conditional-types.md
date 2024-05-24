@@ -14,7 +14,7 @@ type Test2 = IsArray<string[]>; // "yes"
 ## Using Infer
 
 ### Prerequisites
-- 
+- [Template Literal Types](../data-structure/template-literal-types)
 
 Infer is a keyword used in conditional types to infer the type of a variable based on a condition. Infer is often used in conjunction with the `extends` keyword to extract the type of a variable that matches a specific condition.
 
