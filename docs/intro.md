@@ -28,9 +28,9 @@ Moreover, I have not seen any books or articles that cover these topics. I hope 
 - TypeScript Config
   - Use strict
 - Data Structure
-  - Use [literal type](./data-structure/literal-types) rathen than string
-  - Use [Record object](./data-structure/record-object.md) rather than list/array
-  - Use [Tuple](./data-structure/tuple.md) rather than list/array
+  - Use [literal type](./basic-types/literal-types) rathen than string
+  - Use [Record object](./basic-types/record-object.md) rather than list/array
+  - Use [Tuple](./basic-types/tuple.md) rather than list/array
 - Design Patterns
   - Use [builder pattern](./design-patterns/builder-pattern.md)
   - Use [function argument](./design-patterns/function-argument.md) instead of plain object

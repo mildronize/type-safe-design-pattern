@@ -29,9 +29,9 @@ outline: deep
 - การตั้งค่า TypeScript
   - ใช้ strict
 - โครงสร้างข้อมูล
-  - ใช้ [literal type](/data-structure/literal-types) แทน string
-  - ใช้ [Record object](/data-structure/record-object.md) แทน list/array
-  - ใช้ [Tuple](/data-structure/tuple.md) แทน list/array
+  - ใช้ [literal type](/basic-types/literal-types) แทน string
+  - ใช้ [Record object](/basic-types/record-object.md) แทน list/array
+  - ใช้ [Tuple](/basic-types/tuple.md) แทน list/array
 - รูปแบบการออกแบบ
   - ใช้ [builder pattern](/design-patterns/builder-pattern.md)
   - ใช้ [function argument](/design-patterns/function-argument.md) แทน plain object

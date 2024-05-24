@@ -71,21 +71,21 @@ export const baseSidebar = new Sidebar({
   .add("/", "glossary", { text: "Glossary", link: "/glossary" })
   .add("/", "examples", { text: "Examples", link: "/examples" })
   /**
-   * Data Structure Section
+   * Basic Types Section
    */
-  .addGroup("/data-structure", { text: "Data Structure" })
-  .add("/data-structure", "data-structure", {
+  .addGroup("/basic-types", { text: "Basic Types" })
+  .add("/basic-types", "basic-types", {
     text: "Intro",
-    link: "/data-structure",
+    link: "/basic-types",
     docFooterText: "Intro to Data Structure",
   })
-  .add("/data-structure", "literal-types", { text: "Literal Types", link: "/literal-types" })
-  .add("/data-structure", "template-literal-types", {
+  .add("/basic-types", "literal-types", { text: "Literal Types", link: "/literal-types" })
+  .add("/basic-types", "template-literal-types", {
     text: "Template Literal Types",
     link: "/template-literal-types",
   })
-  .add("/data-structure", "tuple", { text: "Tuple Types", link: "/tuple" })
-  .add("/data-structure", "record-object", { text: "Record Types", link: "/record-object" })
+  .add("/basic-types", "tuple", { text: "Tuple Types", link: "/tuple" })
+  .add("/basic-types", "record-object", { text: "Record Types", link: "/record-object" })
   /**
    * Type Programming Section
    */
