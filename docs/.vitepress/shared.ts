@@ -77,6 +77,7 @@ export const baseSidebar = new Sidebar({
     link: "/design-guideline",
     docFooterText: "Intro to Design Guideline",
   })
+  .add('/design-guideline', 'you-might-not-need-type-safe', { text: "You Might Not Need Type-safe", link: "/you-might-not-need-type-safe" })
   .add("/design-guideline", "when-type-safe", { text: "When Type-safe", link: "/when-type-safe" })
   .add("/design-guideline", "type-safe-level", { text: "Type-Safe Level", link: "/type-safe-level" })
   .add("/design-guideline", "project-structure", { text: "Project Structure", link: "/project-structure" })
