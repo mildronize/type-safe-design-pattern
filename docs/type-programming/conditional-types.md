@@ -10,3 +10,25 @@ type IsArray<T> = T extends any[] ? "yes" : "no";
 type Test1 = IsArray<number>; // "no"
 type Test2 = IsArray<string[]>; // "yes"
 ```
+
+## Using Infer
+
+### Prerequisites
+- [Template Literal Types](../basic-types/template-literal-types)
+
+Infer is a keyword used in conditional types to infer the type of a variable based on a condition. Infer is often used in conjunction with the `extends` keyword to extract the type of a variable that matches a specific condition.
+
+```ts twoslash
+type FindPrefix<T> = 
+    T extends `${infer Prefix}/${string}`
+    ? Prefix
+    : 'Not Found';
+
+
+type Test = FindPrefix<'api/users'>;
+    // ^?
+
+// End of Example
+```
+
+For example above, the `FindPrefix` type extracts the prefix of a string that is separated by a `/`. If the string matches the pattern `${infer Prefix}/${string}`, the type `Prefix` is inferred as the prefix of the string. Otherwise, the type is set to `'Not Found'`.

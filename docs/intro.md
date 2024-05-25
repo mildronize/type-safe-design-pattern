@@ -23,23 +23,30 @@ I am currently writing a new E-book. Please follow and support!This book is for 
 
 Moreover, I have not seen any books or articles that cover these topics. I hope this book will help you improve your TypeScript code quality and design. I will publish the book on Leanpub. I will update the progress on X (Twitter). Please follow me on X (Twitter) [@mildronize](https://x.com/mildronize). I've been working on this book for a while, and I hope to finish it soon. I would love to hear feedback from the community because at that time when I'm writing, I haven't seen anyone write about this yet.
 
-## Table of Contents
+## Why I wrote this book
 
-- TypeScript Config
-  - Use strict
-- Data Structure
-  - Use [literal type](./data-structure/literal-types) rathen than string
-  - Use [Record object](./data-structure/record-object.md) rather than list/array
-  - Use [Tuple](./data-structure/tuple.md) rather than list/array
-- Design Patterns
-  - Use [builder pattern](./design-patterns/builder-pattern.md)
-  - Use [function argument](./design-patterns/function-argument.md) instead of plain object
-  - Use [function overload](./design-patterns/function-overload.md)
+When I started learning TypeScript, I think design type-safe code is a bit challenging. I've seen many people use type-safe design patterns in their projects, but I couldn't find any resources that explain how to use them. It's too much subjective and hard to understand. I've learned type-safe design patterns from various modern TypeScript open-source projects, and write my own Azure Functions Framework called [Nammtham](https://nammatham.thaitype.dev/). I've learned a lot from these projects. 
+
+I decided to write this book to help other developers who are struggling with type-safe design patterns. I hope this book will help you improve your TypeScript code quality and design.
 
 ## Prerequisites
 Please make sure you have a good understanding of TypeScript before reading this book. If you are new to TypeScript, I recommend reading the [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html) first.
 
 Generics are a fundamental concept in TypeScript, so make sure you understand them. You can read the [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) section of the TypeScript Handbook. 
+
+## How the book is structured
+
+From the book prerequisites, it is recommended to have a good understanding of TypeScript before reading this book. However, if you are already familiar with TypeScript, you can jump to a specific section that interests you. Each section will provide the necessary prerequisites and type knowledge that you need to know before reading it. So, you don't necessarily have to read the book from start to finish.
+
+The book is divided into several sections, each covering a different topic. Each section is linked together, the sections are as follows:
+
+- Section 1: Start Reading
+- Section 2: Design Guideline
+- Section 3: Basic Types
+- Section 4: Type Programming
+- Section 5: Design Patterns
+- Section 6: Framework Patterns
+- Section 7: Performance
 
 ## Recommended Reading
 

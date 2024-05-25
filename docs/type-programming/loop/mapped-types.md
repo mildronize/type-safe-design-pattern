@@ -56,3 +56,43 @@ type CopyMap<T> = {
 We use the `keyof` operator which returns the keys of the type `Person`, that is `"name" | "age"` in this case. We then use the `in` operator to iterate over the keys and map them to the values of the type `Person`. The result of the mapped type `CopyMap` is the same as the input type `Person`.
 
 Note that, when we use `in` operator, we can act of union types to be arrary of keys (From the programming realm, we can't do this). For example, `keyof Person` returns `"name" | "age"`, we can think of it as `["name", "age"]` in the programming realm.
+
+## Examples
+
+### 1. Loop for Add Prefix to Keys
+
+```ts twoslash
+type AppendPrefix<T, U extends string> = {
+  [K in keyof T as `${U}${K & string}`]: T[K]
+};
+
+function appendPrefix<T extends Record<string, any>, U extends string>(obj: T, prefix: U) {
+  const result: Partial<AppendPrefix<T, U>> = {};
+  for (const [key, value] of Object.entries(obj)) {
+    result[`${prefix}${key}`] = value;
+  }
+  return result;
+}
+
+interface Person {
+  name: string;
+  age: number;
+  location: string;
+}
+
+const person: Person = {
+  name: 'John',
+  age: 30,
+  location: 'Thailand'
+}
+
+// Example
+
+const oldPerson = appendPrefix(person, 'old_');
+
+oldPerson.old_age;
+oldPerson.old_location;
+oldPerson.old_name;
+
+
+```

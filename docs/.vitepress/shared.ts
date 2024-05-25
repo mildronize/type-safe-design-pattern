@@ -26,10 +26,10 @@ export const shared = defineConfig({
 });
 
 /**
- * Add Google Analytics 
+ * Add Google Analytics
  * @ref https://vitepress.dev/reference/site-config#example-using-google-analytics
- * @param tagManagerId 
- * @returns 
+ * @param tagManagerId
+ * @returns
  */
 function googleAnalytics(tagManagerId: string): HeadConfig[] {
   return [
@@ -66,22 +66,37 @@ export const baseSidebar = new Sidebar({
   .addGroup("/", { text: "Start Reading" })
   .add("/", "intro", { text: "Introduction", link: "/intro" })
   .add("/", "type-safe", { text: "What is Type-safe", link: "/what-type-safe" })
-  .add("/", "when-type-safe", { text: "When Type-safe", link: "/when-type-safe" })
-  .add("/", "project-structure", { text: "Project Structure", link: "/project-structure" })
   .add("/", "glossary", { text: "Glossary", link: "/glossary" })
   .add("/", "examples", { text: "Examples", link: "/examples" })
   /**
-   * Data Structure Section
+   * Design Guideline Section
    */
-  .addGroup("/data-structure", { text: "Data Structure" })
-  .add("/data-structure", "data-structure", {
+  .addGroup("/design-guideline", { text: "Design Guideline" })
+  .add("/design-guideline", "design-guideline", {
     text: "Intro",
-    link: "/data-structure",
-    docFooterText: "Intro to Data Structure",
+    link: "/design-guideline",
+    docFooterText: "Intro to Design Guideline",
   })
-  .add("/data-structure", "literal-types", { text: "Literal Types", link: "/literal-types" })
-  .add("/data-structure", "tuple", { text: "Tuple Types", link: "/tuple" })
-  .add("/data-structure", "record-object", { text: "Record Types", link: "/record-object" })
+  .add("/design-guideline", "when-type-safe", { text: "When Type-safe", link: "/when-type-safe" })
+  .add("/design-guideline", "type-safe-level", { text: "Type-Safe Level", link: "/type-safe-level" })
+  .add("/design-guideline", "project-structure", { text: "Project Structure", link: "/project-structure" })
+  /**
+   * Basic Types Section
+   */
+  .addGroup("/basic-types", { text: "Basic Types" })
+  .add("/basic-types", "basic-types", {
+    text: "Intro",
+    link: "/basic-types",
+    docFooterText: "Intro to Basic Types",
+  })
+  .add("/basic-types", "literal-types", { text: "Literal Types", link: "/literal-types" })
+  .add("/basic-types", "template-literal-types", {
+    text: "Template Literal Types",
+    link: "/template-literal-types",
+  })
+  .add("/basic-types", "tuple", { text: "Tuple Types", link: "/tuple" })
+  .add("/basic-types", "record-object", { text: "Record Types", link: "/record-object" })
+  .add("/basic-types", "generics", { text: "Generics", link: "/generics" })
   /**
    * Type Programming Section
    */
@@ -96,11 +111,6 @@ export const baseSidebar = new Sidebar({
   .addGroup("/type-programming/loop", { text: "Loop" })
   .add("/type-programming/loop", "mapped-types", { text: "Mapped Types", link: "/mapped-types" })
   .add("/type-programming/loop", "recursive-types", { text: "Recursive Types", link: "/recursive-types" })
-
-  .add("/type-programming", "template-literal-types", {
-    text: "Template Literal Types",
-    link: "/template-literal-types",
-  })
   .add("/type-programming", "testing", { text: "Testing", link: "/testing" })
   .add("/type-programming", "examples", { text: "Examples", link: "/examples" })
   /**
@@ -117,9 +127,9 @@ export const baseSidebar = new Sidebar({
   .add("/design-patterns", "function-overload", { text: "Function Overloading", link: "/function-overload" })
   .add("/design-patterns", "function-argument", { text: "Function Argument", link: "/function-argument" })
   /**
-   * Framework Pattern Section
+   * Framework Patterns Section
    */
-  .addGroup("/framework-pattern", { text: "Framework Pattern" })
+  .addGroup("/framework-pattern", { text: "Framework Patterns" })
   .add("/framework-pattern", "framework-pattern", {
     text: "Intro",
     link: "/framework-pattern",
