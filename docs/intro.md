@@ -25,7 +25,25 @@ Moreover, I have not seen any books or articles that cover these topics. I hope 
 
 ## Why I wrote this book
 
-When I started learning TypeScript, I think design type-safe code is a bit challenging. I've seen many people use type-safe design patterns in their projects, but I couldn't find any resources that explain how to use them. It's too much subjective and hard to understand. I've learned type-safe design patterns from various modern TypeScript open-source projects, and write my own Azure Functions Framework called [Nammtham](https://nammatham.thaitype.dev/). I've learned a lot from these projects. 
+I'm not sure if everyone is like me, but when I started writing TypeScript, generics were really scary (not generics in other languages, but specifically TypeScript's).
+
+The more I wrote in a type-safe manner, the more it felt like going into an unknown territory that left me confused, haha.
+
+And of course, the concept of type-safe isn't new, and I didn't come up with it. Many modern TypeScript libraries have started to claim that they are type-safe libraries. You can check them out.
+
+There are also articles (not many, but there are some) about programming with types, or what you might call type-level programming or a complete Turing system.
+
+However, after reading those articles, I still couldn't design my own framework. It requires imagination and involves looking into well-known open-source code and gradually testing the concept of type programming to see how types work together.
+
+One thing I've discovered is that when I write JavaScript code first (without types), it can't be transformed into type-safe code without rewriting. Therefore, older libraries that support TypeScript, like Express, can never be truly type-safe.
+
+So, when you see people claiming that modern TypeScript is type-safe, it means TypeScript first, then JavaScript. In other words, you write the types before writing the code. I'm trying to understand how to shift my thinking and design my code to be type-safe, which requires a change in mindset.
+
+As I wrote in my book:
+
+> "Not every design pattern has type-safe data types. Applying the appropriate design patterns is essential."
+
+I've learned type-safe design patterns from various modern TypeScript open-source projects, and write my own Azure Functions Framework called [Nammtham](https://nammatham.thaitype.dev/). I've learned a lot from these projects. 
 
 I decided to write this book to help other developers who are struggling with type-safe design patterns. I hope this book will help you improve your TypeScript code quality and design.
 
