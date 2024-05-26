@@ -66,6 +66,21 @@ The book is divided into several sections, each covering a different topic. Each
 - Section 6: Framework Patterns
 - Section 7: Performance
 
+## Reading Instructions
+
+This book contains many code examples, with [twoslash plugin](https://shiki.matsu.io/packages/vitepress#twoslash) you can peak the type definitions by hovering over the code. For example:
+
+```ts twoslash
+type User = {
+  name: string
+  age: number
+}
+
+type UserWithoutAge = Omit<User, 'age'>
+```
+
+I recommend that you try running the code examples in the [TypeScript Playground](https://www.typescriptlang.org/play) or your own editor to get a better understanding of the concepts. However, I you need interactive examples I don't have enough time to support it, feel free to open the Pull Request on [GitHub](https://github.com/mildronize/type-safe-design-pattern) for [adding monao editor](https://github.com/vuejs/vitepress/issues/1508#issuecomment-1689500884) to the page.
+
 ## Recommended Reading
 
 - [Type-Level Programming](https://type-level-typescript.com/) e-book. 
