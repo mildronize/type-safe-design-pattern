@@ -13,4 +13,4 @@ Most Type-safe in the Modern TypeScript libraries use Template Literal Types, yo
 - ts-odata-client
 - [hotscript](https://github.com/gvergnaud/hotscript) - A library of composable functions for the type-level! Transform your TypeScript types in any way you want using functions you already know.
 - [zodios](https://www.zodios.org/)
-
+- [query-key-factory](https://github.com/lukemorales/query-key-factory) A library for creating typesafe standardized query keys, useful for cache management in @tanstack/query
