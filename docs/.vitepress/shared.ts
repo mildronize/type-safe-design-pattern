@@ -127,6 +127,7 @@ export const baseSidebar = new Sidebar({
   .add("/design-patterns", "builder-pattern", { text: "Builder Pattern", link: "/builder-pattern" })
   .add("/design-patterns", "function-overload", { text: "Function Overloading", link: "/function-overload" })
   .add("/design-patterns", "function-argument", { text: "Function Argument", link: "/function-argument" })
+  .add("/design-patterns", "adapter-pattern", {text: "Adapter Pattern", link: "/adapter-pattern"})
   /**
    * Framework Patterns Section
    */
