@@ -101,7 +101,7 @@ In this case, `paymentMethod` is inferred to be of type `string`. However, since
 
 Here’s the full code where this problem occurs:
 
-```ts
+```ts twoslash
 export interface PaymentAdapterBase {
   paymentMethod: string;
   pay(amount: number): void;
@@ -135,7 +135,12 @@ const paymentProcessor = new PaymentProcessor(new PayPalAdapter());
 paymentProcessor.pay(100);
 
 const paymentMethod = paymentProcessor.payment.paymentMethod;
-// TypeScript infers this as a `string` type, but it should be 'PayPal' or 'Stripe'
+//     ^?
+
+
+
+// ^-- TypeScript infers this as a `string` type, 
+//     but it should be 'PayPal' or 'Stripe'
 
 ```
 
@@ -149,7 +154,7 @@ The issue arises because the `PaymentAdapterBase` interface declares `paymentMet
 
 We can solve this by using string literal types in the interface to ensure that the type system recognizes the specific values used by each adapter. Here's how we can modify the code:
 
-```ts
+```ts twoslash
 export interface PaymentAdapterBase {
   paymentMethod: 'PayPal' | 'Stripe';
   pay(amount: number): void;
@@ -183,7 +188,11 @@ const paymentProcessor = new PaymentProcessor(new PayPalAdapter());
 paymentProcessor.pay(100);
 
 const paymentMethod = paymentProcessor.payment.paymentMethod;
-// Now TypeScript correctly infers the type as 'PayPal' or 'Stripe'
+//     ^?
+
+
+
+// ^--- Now TypeScript correctly infers the type as 'PayPal' or 'Stripe'
 
 ```
 
@@ -197,3 +206,93 @@ By explicitly defining the `paymentMethod` type in the `PaymentAdapterBase` inte
 - **Code Readability**: The correct inference of `paymentMethod` makes the code more readable and understandable, reducing the likelihood of errors when dealing with specific payment providers.
 
 In conclusion, when using the Adapter Pattern in TypeScript, it's essential to ensure that type inference works as expected by explicitly using string literal types when dealing with properties like `paymentMethod`. This avoids the pitfalls of overly generic types and makes your code more robust and maintainable.
+
+
+## Problem with Union Type in Adapter Pattern
+
+When using the union type for the `paymentMethod` property, we encounter a new issue. In the previous example:
+
+```ts
+const paymentProcessor = new PaymentProcessor(new PayPalAdapter());
+paymentProcessor.pay(100);
+
+const paymentMethod = paymentProcessor.payment.paymentMethod;
+//           ^--  This will be of union type "PayPal" | "Stripe"
+```
+
+The `paymentMethod` is inferred as a union type `'PayPal' | 'Stripe'`. However, we know that the specific adapter assigned to `PaymentProcessor` is `PayPalAdapter`, meaning the `paymentMethod` should only be `'PayPal'`. This mismatch can lead to problems in terms of accuracy and code clarity.
+
+### Union Type Issue
+
+Even though we are passing a `PayPalAdapter`, TypeScript still treats the `paymentMethod` as a union of both `'PayPal'` and `'Stripe'` due to the union type defined in the `PaymentAdapterBase` interface. This can be confusing because, at runtime, we know that the value will only be `'PayPal'` in this specific instance. This issue arises because the type system doesn’t narrow down the type based on the concrete adapter used.
+
+### Scalability Limitation
+
+Another limitation of the current approach is that `PaymentAdapterBase` only supports two adapters: `PayPalAdapter` and `StripeAdapter`. As your application grows, this becomes less scalable. Adding a new payment method would require extending the union type, which is not future-proof and could lead to maintenance difficulties.
+
+### Solution: Generic `PaymentAdapterBase`
+
+To address both of these issues, we can use generics in the `PaymentAdapterBase` interface. This approach ensures that the `paymentMethod` type is correctly inferred based on the specific adapter used and allows for better scalability as new adapters are added.
+
+### Refined Code with Generic Types
+
+Here is the solution that addresses these issues:
+
+```ts twoslash
+export interface PaymentAdapterBase<TPaymentMethod extends string> {
+  paymentMethod: TPaymentMethod;
+  pay(amount: number): void;
+}
+
+export class PayPalAdapter implements PaymentAdapterBase<'PayPal'> {
+  readonly paymentMethod = 'PayPal';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with PayPal`);
+  }
+}
+
+export class StripeAdapter implements PaymentAdapterBase<'Stripe'> {
+  readonly paymentMethod = 'Stripe';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with Stripe`);
+  }
+}
+
+class PaymentProcessor<TPaymentMethod extends string> {
+  constructor(public readonly payment: PaymentAdapterBase<TPaymentMethod>) { }
+
+  pay(amount: number) {
+    this.payment.pay(amount);
+  }
+}
+
+const paymentProcessor = new PaymentProcessor(new PayPalAdapter());
+paymentProcessor.pay(100);
+
+const paymentMethod = paymentProcessor.payment.paymentMethod;
+//      ^?
+
+
+
+// ^-- Now, the paymentMethod is correctly inferred as "PayPal"
+
+```
+
+### How It Solves the Problem
+
+1. **Accurate Type Inference**:
+By using the generic `PaymentAdapterBase<TPaymentMethod extends string>`, we allow TypeScript to correctly infer the type of `paymentMethod` based on the specific adapter used. In the example above, since we passed `PayPalAdapter` to the `PaymentProcessor`, the `paymentMethod` is inferred as `'PayPal'` and not as a union type.
+2. **Scalability**:
+This approach makes the solution more scalable. By using generics, we no longer need to explicitly modify the `PaymentAdapterBase` interface whenever we add a new payment method. Instead, each adapter defines its own specific `paymentMethod`, making it easy to add new adapters in the future without altering the core logic.
+
+### Benefits of This Approach
+
+- **Type-Safe**: The type of `paymentMethod` is now tightly coupled with the specific adapter used, eliminating the ambiguity of the union type.
+- **Scalability**: New payment methods can be easily added without modifying the base interface. Each adapter simply defines its own `paymentMethod` type, making the system more maintainable and flexible.
+- **Code Clarity**: The code is now easier to read and reason about, as the types are precisely tied to the specific implementations of each adapter.
+
+### Conclusion
+
+The solution presented here resolves the issues of type inference and scalability by using generics in the `PaymentAdapterBase` interface. This ensures that the `paymentMethod` type is accurately inferred based on the adapter used, while also allowing for the seamless addition of new adapters in the future without modifying existing code. This approach not only improves type safety but also enhances the flexibility and maintainability of your application’s architecture.
