@@ -212,11 +212,44 @@ In conclusion, when using the Adapter Pattern in TypeScript, it's essential to e
 
 When using the union type for the `paymentMethod` property, we encounter a new issue. In the previous example:
 
-```ts
+```ts twoslash
+export interface PaymentAdapterBase {
+  paymentMethod: 'PayPal' | 'Stripe';
+  pay(amount: number): void;
+}
+
+export class PayPalAdapter implements PaymentAdapterBase {
+  paymentMethod: 'PayPal' = 'PayPal';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with PayPal`);
+  }
+}
+
+export class StripeAdapter implements PaymentAdapterBase {
+  paymentMethod: 'Stripe' = 'Stripe';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with Stripe`);
+  }
+}
+
+class PaymentProcessor {
+  constructor(public readonly payment: PaymentAdapterBase) { }
+
+  pay(amount: number) {
+    this.payment.pay(amount);
+  }
+}
+// ---cut---
 const paymentProcessor = new PaymentProcessor(new PayPalAdapter());
 paymentProcessor.pay(100);
 
 const paymentMethod = paymentProcessor.payment.paymentMethod;
+//      ^?
+
+
+
 //           ^--  This will be of union type "PayPal" | "Stripe"
 ```
 
@@ -296,3 +329,250 @@ This approach makes the solution more scalable. By using generics, we no longer 
 ### Conclusion
 
 The solution presented here resolves the issues of type inference and scalability by using generics in the `PaymentAdapterBase` interface. This ensures that the `paymentMethod` type is accurately inferred based on the adapter used, while also allowing for the seamless addition of new adapters in the future without modifying existing code. This approach not only improves type safety but also enhances the flexibility and maintainability of your application’s architecture.
+
+
+## Adding a Default Adapter with Type-Safety
+
+In some cases, it may be useful to define a default adapter in the `PaymentProcessor` class, while still maintaining strict type safety. The goal is to allow the `PaymentProcessor` to default to an adapter (e.g., `PayPalAdapter`) if none is provided, but still ensure that the type of `paymentMethod` remains accurate and specific based on the actual adapter used.
+
+### Initial Attempt with Default Adapter
+
+Let's first attempt to modify the `PaymentProcessor` class to accept an optional adapter and default to `PayPalAdapter` if none is provided:
+
+```ts twoslash
+export interface PaymentAdapterBase<TPaymentMethod extends string> {
+  paymentMethod: TPaymentMethod;
+  pay(amount: number): void;
+}
+
+export class PayPalAdapter implements PaymentAdapterBase<'PayPal'> {
+  readonly paymentMethod = 'PayPal';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with PayPal`);
+  }
+}
+
+export class StripeAdapter implements PaymentAdapterBase<'Stripe'> {
+  readonly paymentMethod = 'Stripe';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with Stripe`);
+  }
+}
+// ---cut---
+class PaymentProcessor<TAdapter extends PaymentAdapterBase<string>> {
+  public payment: TAdapter;
+  constructor(payment?: TAdapter) {
+    this.payment = payment ?? new PayPalAdapter() as TAdapter;
+  }
+
+  pay(amount: number) {
+    this.payment.pay(amount);
+  }
+}
+
+const paymentProcessor = new PaymentProcessor();
+paymentProcessor.pay(100);
+
+const paymentMethod = paymentProcessor.payment.paymentMethod;
+//      ^?
+
+
+
+// ^-- TypeScript will infer `paymentMethod` as `string`,
+//     causing the same problem again.
+
+```
+
+While this works in terms of functionality, we face the same problem with type inference. Even though we default to `PayPalAdapter`, the `paymentMethod` is still inferred as `string`, which is not ideal. We want `paymentMethod` to be specific, such as `'PayPal'`, when `PayPalAdapter` is used.
+
+### Second Attempt: Incorrect Generic Definition
+
+After realizing the problem with the union type in the initial attempt, we tried to refactor the code to maintain type safety and allow for a default adapter. However, the following refactor introduces a new issue with how the generic types are defined:
+
+```ts twoslash
+export interface PaymentAdapterBase<TPaymentMethod extends string> {
+  paymentMethod: TPaymentMethod;
+  pay(amount: number): void;
+}
+
+export class PayPalAdapter implements PaymentAdapterBase<'PayPal'> {
+  readonly paymentMethod = 'PayPal';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with PayPal`);
+  }
+}
+
+export class StripeAdapter implements PaymentAdapterBase<'Stripe'> {
+  readonly paymentMethod = 'Stripe';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with Stripe`);
+  }
+}
+
+class PaymentProcessor<TAdapter extends PaymentAdapterBase<string>> {
+  constructor(public payment: TAdapter) {}
+
+  pay(amount: number) {
+    this.payment.pay(amount);
+  }
+}
+// ---cut---
+const createPaymentProcessor = <TAdapter extends PaymentAdapterBase<string>>(defaultAdapter: TAdapter) => ({
+  create(adapter?: TAdapter): PaymentProcessor<TAdapter> {
+    if(adapter){
+      return new PaymentProcessor(adapter) as unknown as PaymentProcessor<TAdapter>;
+    }
+    return new PaymentProcessor(defaultAdapter) as unknown as PaymentProcessor<TAdapter>;
+  }
+});
+```
+
+In this refactor, we attempt to use a factory function that takes a `defaultAdapter` of type `TAdapter`. The `create` method either accepts a custom adapter or falls back to the `defaultAdapter`.
+
+Here is how we tried to use it:
+
+```ts
+const initPaymentProcessor = createPaymentProcessor(new PayPalAdapter());
+const paymentProcessor = initPaymentProcessor.create(new StripeAdapter());
+```
+
+However, this code leads to a **type error**:
+
+```
+Argument of type 'StripeAdapter' is not assignable to parameter of type 'PayPalAdapter'.
+Types of property 'paymentMethod' are incompatible.
+  Type '"Stripe"' is not assignable to type '"PayPal"'.ts(2345)
+```
+
+#### Why This Fails
+
+The issue arises because the generic type `TAdapter` is defined once in the factory function, and the system expects that type to remain consistent throughout the `create` method. In this case, `TAdapter` is inferred as `PayPalAdapter` from the default adapter. When we try to pass a `StripeAdapter`, TypeScript expects the adapter to be compatible with `PayPalAdapter`, which it is not, since `paymentMethod` has different values.
+
+Essentially, TypeScript expects the `adapter` passed to the `create` method to match the type of the default adapter (`PayPalAdapter`), leading to the type error when trying to pass in `StripeAdapter`.
+
+#### Key Takeaway
+
+This second attempt demonstrates the challenge of defining a generic type too strictly. The type system locks in `TAdapter` based on the default adapter, preventing flexibility in passing other adapters later on. This approach fails because it doesn't allow for a different adapter type to be passed without violating the type constraints.
+
+### Refactoring for Better Type Inference
+
+To address this issue, we need to refactor how the default adapter is handled. Specifically, we can introduce a factory function to create a `PaymentProcessor` with a default adapter, while still preserving type safety and allowing for the adapter to be configurable.
+
+Here’s how we can achieve this:
+
+```ts twoslash
+export interface PaymentAdapterBase<TPaymentMethod extends string> {
+  paymentMethod: TPaymentMethod;
+  pay(amount: number): void;
+}
+
+export class PayPalAdapter implements PaymentAdapterBase<'PayPal'> {
+  readonly paymentMethod = 'PayPal';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with PayPal`);
+  }
+}
+
+export class StripeAdapter implements PaymentAdapterBase<'Stripe'> {
+  readonly paymentMethod = 'Stripe';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with Stripe`);
+  }
+}
+
+class PaymentProcessor<TAdapter extends PaymentAdapterBase<string>> {
+  constructor(public payment: TAdapter) {}
+
+  pay(amount: number) {
+    this.payment.pay(amount);
+  }
+}
+// ---cut---
+const createPaymentProcessor = <TDefaultAdapter extends PaymentAdapterBase<string>>(defaultAdapter: TDefaultAdapter) => ({
+  create<TAdapter extends PaymentAdapterBase<string> = TDefaultAdapter>(adapter?: TAdapter): PaymentProcessor<TAdapter> {
+    if (adapter) {
+      return new PaymentProcessor(adapter) as unknown as PaymentProcessor<TAdapter>;
+    }
+    return new PaymentProcessor(defaultAdapter) as unknown as PaymentProcessor<TAdapter>;
+  }
+});
+
+```
+
+In this refactor, the `createPaymentProcessor` function returns an object with a `create` method. The `create` method allows for an optional `adapter` to be passed in, defaulting to the `TDefaultAdapter` type if none is provided. This ensures that the type of `paymentMethod` remains specific to the adapter used, whether it’s the default or a provided one.
+
+### Full Example
+
+```ts twoslash
+export interface PaymentAdapterBase<TPaymentMethod extends string> {
+  paymentMethod: TPaymentMethod;
+  pay(amount: number): void;
+}
+
+export class PayPalAdapter implements PaymentAdapterBase<'PayPal'> {
+  readonly paymentMethod = 'PayPal';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with PayPal`);
+  }
+}
+
+export class StripeAdapter implements PaymentAdapterBase<'Stripe'> {
+  readonly paymentMethod = 'Stripe';
+
+  pay(amount: number): void {
+    console.log(`Pay amount ${amount}$ with Stripe`);
+  }
+}
+
+class PaymentProcessor<TAdapter extends PaymentAdapterBase<string>> {
+  constructor(public readonly payment: TAdapter) { }
+
+  pay(amount: number) {
+    this.payment.pay(amount);
+  }
+}
+
+const createPaymentProcessor = <TDefaultAdapter extends PaymentAdapterBase<string>>(defaultAdapter: TDefaultAdapter) => ({
+  create<TAdapter extends PaymentAdapterBase<string> = TDefaultAdapter>(adapter?: TAdapter): PaymentProcessor<TAdapter> {
+    if (adapter) {
+      return new PaymentProcessor(adapter) as unknown as PaymentProcessor<TAdapter>;
+    }
+    return new PaymentProcessor(defaultAdapter) as unknown as PaymentProcessor<TAdapter>;
+  }
+});
+
+const initPaymentProcessor = createPaymentProcessor(new PayPalAdapter());
+const paymentProcessor = initPaymentProcessor.create(new StripeAdapter());
+
+paymentProcessor.pay(100);
+
+const paymentMethod = paymentProcessor.payment.paymentMethod;
+//      ^?
+
+
+
+// ^-- Now, `paymentMethod` is correctly inferred as 'Stripe'.
+
+```
+
+### How This Works
+
+1. **Generics for Flexibility**:
+The `createPaymentProcessor` function uses generics to allow the type of the default adapter to be passed in. The `create` method also uses generics to accept either a specific adapter or default to the one provided during initialization.
+2. **Type-Safe Inference**:
+By using generics and default types, TypeScript is able to correctly infer the type of `paymentMethod` based on the specific adapter used. If no adapter is passed to `create`, the `paymentMethod` will be inferred based on the default adapter. If an adapter is passed, TypeScript will infer the type based on that adapter.
+3. **Scalability**:
+This solution remains scalable. You can easily add more payment adapters without modifying the core logic, and the type system will continue to work correctly, inferring the specific type of `paymentMethod` based on the adapter passed.
+
+### Conclusion
+
+By refactoring the `PaymentProcessor` class to use a factory function and generics, we are able to achieve both type safety and flexibility. This approach allows for a default adapter to be provided while maintaining correct type inference, ensuring that the `paymentMethod` is always accurately typed based on the adapter used.
+
+
